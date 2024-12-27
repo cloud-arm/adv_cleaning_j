@@ -47,5 +47,5 @@ $mat_id = $_POST['mat_id'];
 // }
 
 // Redirect to job view page
-header("Location: ../../job_view.php?id=". base64_encode($job_id));
+header("Location: ../../job_view.php?id=$job_id");
 exit();

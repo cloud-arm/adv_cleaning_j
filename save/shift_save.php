@@ -14,6 +14,7 @@ $job_id = base64_encode($_POST['job_id']);
 $note = $_POST['note'];
 $price = $_POST['price'];
 $employee_count = $_POST['employee_count'];
+$sup_count = $_POST['sup_count'];
 
 
 // Process each location ID
@@ -32,6 +33,7 @@ $employee_count = $_POST['employee_count'];
             "note" => $note,
             "price" => $price,
             "employee_count" => $employee_count,
+            "sup_count" => $sup_count
         ),
         "other" => array()
     );
@@ -45,5 +47,5 @@ $employee_count = $_POST['employee_count'];
 // }
 
 // Redirect to job view page
-header("Location: ../../job_view.php?id=$job_id");
+header("Location:../job_view.php?id=$job_id");
 exit();

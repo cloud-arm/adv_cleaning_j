@@ -411,6 +411,24 @@ $user_level = $_SESSION['USER_LEWAL'];
                                         </select>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+
+                            <div class="form-group">
+                                    <label>Shift Type</label>
+                                    <select class="form-control select2 " id="com_id" name="shift_type"
+                                            style="width: 100%;" tabindex="1" autocomplete="off">
+                                            <?php 
+                                                                        $result = select('gen_shift_types', '*');
+                                                                        while ($row = $result->fetch()) { 
+                                                                        $com_id = $row['id']; 
+                                                                    ?>
+                                            <option value="<?php echo $row['id']; ?>">
+                                                <?php echo $row['name']; ?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                </div>
+                            </div>
 
  
 

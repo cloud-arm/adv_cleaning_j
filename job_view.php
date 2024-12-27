@@ -168,22 +168,31 @@ $_SESSION['SESS_BACK']='job_view';
                                     <h5 style="font-weight: normal; color: #777;"><?php echo $note; ?></h5>
                                 </div>
                                 <?php 
-                        $invoice_act = select_item('job','invoice_action', "id='$id'"); 
-                        if($invoice_act != 0){
+                        {
                         ?>
                                 <!-- Invoice in a Shadow Box -->
                                 <div class="col-md-6">
                                     <div
                                         style="background-color: #f9f9f9; border-radius: 8px; padding: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-top: 10px;">
-                                        <h4 style="font-weight: bold; margin-bottom: 10px;">Invoice:</h4>
+                                        <h4 style="font-weight: bold; margin-bottom: 10px;">Internal Company:</h4>
                                         <p style="margin: 0; font-weight: normal; color: #555;">
                                             <?php 
-                        $invoice = select_item('job','invoice_name', "id='$id'"); 
+                        $invoice = select_item('project','internal', "id='$id'"); 
                         echo $invoice;
                         ?>
                                         </p>
+                                        <h4 style="font-weight: bold; margin-bottom: 10px;">Shift type:</h4>
+                                        <p style="margin: 0; font-weight: normal; color: #555;">
+                                            <?php 
+                        $invoice = select_item('project','shift_type_name', "id='$id'"); 
+                        echo $invoice;
+                        ?>
+                                        </p>
+                                        
                                     </div>
                                 </div>
+
+                                
                                 <?php } ?>
                             </div>
                         </div>
@@ -229,24 +238,31 @@ $_SESSION['SESS_BACK']='job_view';
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Note</label>
                         <input type="text" class="form-control" name="note" required>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label>Shift Price</label>
                         <input type="number" class="form-control" name="price" required>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label>Employee Count</label>
+                        <label>janitor Count</label>
                         <input type="number" class="form-control" name="employee_count" required>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Supervicer Count</label>
+                        <input type="number" class="form-control" name="sup_count" required>
                     </div>
                 </div>
 
