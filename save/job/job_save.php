@@ -4,6 +4,7 @@ include('../../config.php');
 
 $com_id=$_POST['com_id'];
 $note=$_POST['note'];
+$internal=$_POST['int_name'];
 
 
 $r1=select_item('company','name','id='.$com_id,'../../');
@@ -23,6 +24,7 @@ $invo=date('ymdHis');
             "invoice_no" => $invo,
             "status" => 'pending',
             "user_id" => $_SESSION['SESS_MEMBER_ID'],
+            "internal" => $internal,
 
 
 

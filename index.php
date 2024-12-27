@@ -63,7 +63,7 @@ $user_level = $_SESSION['USER_LEWAL'];
                         <span class="info-box-icon"><i class="fa fa-building"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">NEXT</span>
-                            <span class="info-box-number"><?php echo $cop_job=select_item('project','COUNT(id)',"action < 5 AND customer_type = 'corporate' "); ?></span>
+                            <span class="info-box-number"></span>
                             <div class="progress">
                                 <div class="progress-bar" style="width: <?php echo ($cop_job/$tot_job)*100 ?>%"></div>
                             </div>
@@ -79,7 +79,7 @@ $user_level = $_SESSION['USER_LEWAL'];
                         <span class="info-box-icon"><i class="fa fa-shopping-cart"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">NEXT</span>
-                            <span class="info-box-number"><?php echo $ret_job=select_item('project','COUNT(id)',"action < 5 AND customer_type = 'retail' "); ?></span>
+                            <span class="info-box-number"></span>
                             <div class="progress">
                                 <div class="progress-bar" style="width: <?php echo ($ret_job/$tot_job)*100 ?>%"></div>
                             </div>
@@ -136,7 +136,10 @@ $user_level = $_SESSION['USER_LEWAL'];
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Job Number</th>
+                    <th>Customer Name</th>
+                    <th>Note</th>
+                    <th>Internal company</th>
+
 
                     <th>Prograss</th>
 
@@ -179,6 +182,8 @@ $user_level = $_SESSION['USER_LEWAL'];
                     <td><?php echo $row['id']; ?></td>
   
                     <td><?php echo $row['company_name']; ?></td>
+                    <td><?php echo $row['internal']; ?></td>
+
 
  
 
@@ -390,7 +395,7 @@ $user_level = $_SESSION['USER_LEWAL'];
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Internal company Name</label>
-                                    <select class="form-control select2 " id="com_id" name="com_id"
+                                    <select class="form-control select2 " id="com_id" name="int_name"
                                             style="width: 100%;" tabindex="1" autocomplete="off">
                                             <?php 
                                                                         $result = select('internal_company', '*');
