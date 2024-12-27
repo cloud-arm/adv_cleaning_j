@@ -182,6 +182,8 @@ $user_level = $_SESSION['USER_LEWAL'];
                     <td><?php echo $row['id']; ?></td>
   
                     <td><?php echo $row['company_name']; ?></td>
+                    <td><?php echo $row['note']; ?></td>
+
                     <td><?php echo $row['internal']; ?></td>
 
 
