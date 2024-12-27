@@ -45,5 +45,5 @@ $employee_count = $_POST['employee_count'];
 // }
 
 // Redirect to job view page
-//header("Location: ../../job_view.php?id=$job_id");
+header("Location: ../../job_view.php?id=$job_id");
 exit();

@@ -9,6 +9,11 @@ $internal=$_POST['int_name'];
 
 $r1=select_item('company','name','id='.$com_id,'../../');
 
+$r2=select_item('internal_company','name','id='.$internal,'../../');
+
+echo $r1;
+
+
 $invo=date('ymdHis');
 
 
@@ -23,8 +28,8 @@ $invo=date('ymdHis');
             "action" => '1',
             "invoice_no" => $invo,
             "status" => 'pending',
-            "user_id" => $_SESSION['SESS_MEMBER_ID'],
-            "internal" => $internal,
+            //"user_id" => $_SESSION['SESS_MEMBER_ID'],
+            "internal" => $r2,
 
 
 

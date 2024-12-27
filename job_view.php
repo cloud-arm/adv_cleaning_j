@@ -297,7 +297,7 @@ $_SESSION['SESS_BACK']='job_view';
                 </thead>
                 <tbody>
                     <?php
-                    $result = select('gen_shift', '*');
+                    $result = select('gen_shift', '*','job_id='.$id);
                     while ($row = $result->fetch()) {
                         echo "<tr>
                                 <td>{$row['id']}</td>
