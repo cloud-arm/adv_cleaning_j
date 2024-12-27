@@ -1,0 +1,56 @@
+{
+    "name": "CLOUD ARM POS",
+    "short_name": "CLOUD ARM",
+    "start_url": "../",
+    "background_color": "#000000",
+    "theme_color": "#CF0A0A",
+    "display": "standalone",
+    "prefer_related_applications": true,
+    "icons": [
+        {
+            "src": "new_icon/72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+
+        },
+        {
+            "src": "new_icon/120.png",
+            "sizes": "120x120",
+            "type": "image/png"
+
+        },
+        {
+            "src": "new_icon/180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+
+        },
+        {
+            "src": "new_icon/192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+
+        },
+        {
+            "src": "new_icon/512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+
+        },
+        {
+            "src": "new_icon/256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+
+        },
+        {
+            "src": "new_icon/1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+
+        }
+        
+    ]
+
+}

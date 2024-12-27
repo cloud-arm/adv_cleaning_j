@@ -1,0 +1,13 @@
+.DS_Store
+connect.php
+app/pwa/product_img/
+save/job/uploads/product_img/
+app/pwa/new_icon/
+.htaccess
+pdf/bin/
+pdf/class/
+js/
+img/user/
+lib/
+pdfd/font/
+pdfd/makefont/
