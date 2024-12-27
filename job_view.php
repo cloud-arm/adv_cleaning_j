@@ -395,10 +395,9 @@ $_SESSION['SESS_BACK']='job_view';
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Unit</th>
-                                            <th>Type</th>
-                                            <th>QTY</th>
+                                            <th>Record</th>
+                                            <th>Note</th>
+                                            <th>Price</th>
                                             <th>@</th>
                                         </tr>
                                     </thead>
