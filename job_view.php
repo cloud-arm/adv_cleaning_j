@@ -243,9 +243,16 @@ $_SESSION['SESS_BACK']='job_view';
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Note</label>
-                                            <input type="text" class="form-control" name="note" required>
+                                            <input type="text" class="form-control" name="note" >
                                         </div>
                                     </div>
+
+                                    <?php
+
+                                    $shift = select_item('project','shift_type_id',"id='$id'");
+
+                                    if($shift == 2 ){
+ ?>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -253,6 +260,8 @@ $_SESSION['SESS_BACK']='job_view';
                                             <input type="number" class="form-control" name="price" required>
                                         </div>
                                     </div>
+
+                                     <?php } ?>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -309,7 +318,15 @@ $_SESSION['SESS_BACK']='job_view';
                                             <th>Out Time</th>
                                             <th>Working Days</th>
                                             <th>Note</th>
+                                            <?php
+
+                                    $shift = select_item('project','shift_type_id',"id='$id'");
+
+                                    if($shift == 2 ){
+                                    ?>
                                             <th>Price</th>
+
+                                            <?php } ?>
                                             <th>Employee Count</th>
                                         </tr>
                                     </thead>
@@ -365,9 +382,9 @@ $_SESSION['SESS_BACK']='job_view';
                                             <select class="form-control select2 " id="mat_id" name="mat_id"
                                                 style="width: 100%;" tabindex="1" autofocus required>
                                                 <?php 
-                                                                        $result = select('gen_extracharges', '*');
-                                                                        while ($row = $result->fetch()) { 
-                                                                        $mat_id = $row['id']; 
+                                                                    $result = select('gen_extracharges', '*');
+                                                                    while ($row = $result->fetch()) { 
+                                                                     $mat_id = $row['id']; 
                                                                     ?>
                                                 <option value="<?php echo $row['id']; ?>">
                                                     <?php echo $row['name']; ?>
