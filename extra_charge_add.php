@@ -37,10 +37,7 @@ $_SESSION['SESS_FORM'] = 'product';
 
                         </div>
 
-                        <div class="col-md-3">
-                            <a href="sub_cat.php">
-                            <button class="btn btn-sm btn-info">Add sub Category</button>
-                        </a>
+
 
                         </div>
 
@@ -74,7 +71,6 @@ $_SESSION['SESS_FORM'] = 'product';
                                 <th><?php echo $row['name']  ?></th>
                                 <th><?php echo $row['des']  ?></th>
                                 <th>
-                                <button onclick="edit_note(<?php echo $row['id']; ?>)" class="btn btn-sm btn-info">edit</button>
                                 <?php if ($user_level == 1): ?>
                                     <a class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id']; ?>)">Delete</a>
                                 <?php endif; ?>
