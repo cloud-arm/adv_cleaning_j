@@ -527,9 +527,7 @@ $_SESSION['SESS_BACK']='job_view';
                                 </div>
                             </form>
 
-                            <a href="gen_spnote_add.php">
-                            <button class="btn btn-sm btn-info">Add Notes</button>
-                        </a>
+
 
                             <hr>
 
@@ -566,6 +564,9 @@ $_SESSION['SESS_BACK']='job_view';
                                 <button class="btn btn-sm btn-primary" onclick="this.disabled = true; clikup();"
                                     id="generate_invo">Generate Quotation</button>
                             </a>
+                            <a href="gen_spnote_add.php">
+                            <button class="btn btn-sm btn-warning">Add Notes</button>
+                        </a>
                         </div>
                     </div>
 
