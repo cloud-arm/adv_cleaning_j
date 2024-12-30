@@ -135,6 +135,8 @@
     $result->execute();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $jenitors = $row['employee_count'];
+        $supervisors = $row['sup_count'];
     ?>
         <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: center;">
             <p><strong>👷 Janitors:</strong> <?php echo($row['employee_count']); ?></p>
@@ -149,11 +151,14 @@
 
         <!-- Special Notes -->
         <div style="margin-bottom: 20px;">
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">📝 Special Notes</h3>
+            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Special Notes</h3>
+            <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor for day shift.</p>
+
             <?php
             $result = $db->prepare("SELECT * FROM gen_special_note_rec WHERE project_id = :job_no");
             $result->bindParam(':job_no', $job_id);
             $result->execute();
+            
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
@@ -164,7 +169,7 @@
 
         <!-- Charges Details -->
         <div>
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">💰 Charges List</h3>
+            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Charges List</h3>
             <?php
             $result = $db->prepare("SELECT * FROM gen_excharge_rec WHERE project_id = :job_no");
             $result->bindParam(':job_no', $job_id);
@@ -172,8 +177,8 @@
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
-                <p><strong>📜 Charge Name:</strong> <?php echo $row['recored']; ?></p>
-                <p><strong>💵 Price:</strong> Rs. <?php echo number_format($row['price'], 2); ?></p>
+                <p><?php echo $row['recored']; ?></p>
+                <p><strong> Price:</strong> Rs. <?php echo number_format($row['price'], 2); ?></p>
             </div>
             <?php } ?>
         </div>
