@@ -137,8 +137,8 @@
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     ?>
         <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: center;">
-            <p><strong>👷 Janitor Count:</strong> <?php echo($row['employee_count']); ?></p>
-            <p><strong>🧑‍🔧 Supervisor Count:</strong> <?php echo ($row['sup_count']); ?></p>
+            <p><strong>👷 Janitors:</strong> <?php echo($row['employee_count']); ?></p>
+            <p><strong>🧑‍🔧 Supervisors:</strong> <?php echo ($row['sup_count']); ?></p>
             <p><strong>📅 Working Days:</strong> <?php echo ($row['working_days']); ?></p>
             <p><strong>⏰ In Time:</strong> <?php echo ($row['in_time']); ?></p>
             <p><strong>⏰ Out Time:</strong> <?php echo ($row['out_time']); ?></p>
