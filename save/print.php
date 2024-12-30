@@ -115,7 +115,7 @@
 
         <!-- Customer Details -->
         <div style="margin: 20px 0;">
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">👤 Customer Details</h3>
+            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Customer Details</h3>
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
     <div>
         <p><strong>Name:</strong> <?php echo $cus_name; ?></p>
@@ -148,7 +148,7 @@
         <p><strong>⏰ In Time:</strong> <?php echo($row['in_time']); ?></p>
         <p><strong>⏰ Out Time:</strong> <?php echo($row['out_time']); ?></p>
     </div>
-    <div style="text-align: center; border-top: 1px solid #ddd; padding-top: 10px;">
+    <div style="text-align: lrft;">
         <p><strong>📅 Working Days:</strong> <?php echo($row['working_days']); ?></p>
     </div>
 </div>
@@ -160,7 +160,9 @@
         <!-- Special Notes -->
         <div style="margin-bottom: 20px;">
             <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Special Notes</h3>
-            <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor for day shift.</p>
+            <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor.</p>
+            <p>Please note quotation 
+            validity period is 45 days from its issuing date</p>
 
             <?php
             $result = $db->prepare("SELECT * FROM gen_special_note_rec WHERE project_id = :job_no");
