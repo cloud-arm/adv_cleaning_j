@@ -160,9 +160,15 @@
         <!-- Special Notes -->
         <div style="margin-bottom: 20px;">
             <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Special Notes</h3>
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
             <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor.</p>
+
+            </div>
+
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
             <p>Please note quotation 
             validity period is 45 days from its issuing date</p>
+            </div>
 
             <?php
             $result = $db->prepare("SELECT * FROM gen_special_note_rec WHERE project_id = :job_no");
