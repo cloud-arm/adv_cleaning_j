@@ -83,6 +83,9 @@
         $info_mail = $row['email'];
     }
 
+    $action=$_GET['type'];
+
+
     $result = $db->prepare("SELECT * FROM project WHERE id = :job_id");
     $result->bindParam(':job_id', $job_id);
     $result->execute();
@@ -141,7 +144,9 @@
         <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; display: flex; justify-content: space-between; align-items: center;">
             <p><strong>👷 Janitors:</strong> <?php echo($row['employee_count']); ?></p>
             <p><strong>🧑‍🔧 Supervisors:</strong> <?php echo ($row['sup_count']); ?></p>
+            <dive style="text-align: bottom;">
             <p><strong>📅 Working Days:</strong> <?php echo ($row['working_days']); ?></p>
+            </dive>
             <p><strong>⏰ In Time:</strong> <?php echo ($row['in_time']); ?></p>
             <p><strong>⏰ Out Time:</strong> <?php echo ($row['out_time']); ?></p>
         </div>
@@ -182,6 +187,11 @@
             </div>
             <?php } ?>
         </div>
+
+        
+
+        <a href="print?id=<?php echo $job_id.'&type='.$action; ?>&print" class="btn btn-danger">
+        <i class="fa fa-print"></i> Print</a>
 
         <!-- Footer -->
         <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #666;">
