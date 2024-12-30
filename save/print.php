@@ -61,26 +61,19 @@
 
 <body>
     <?php
-	$sec = "1";
-	$job_id=$_GET['id'];
-	$return =  '../job_view='.base64_encode($job_id);
+    $sec = "1";
+    $job_id = $_GET['id'];
+    $return = '../job_view=' . base64_encode($job_id);
+    ?>
 
-    
-	?>
     <?php if (isset($_GET['print'])) { ?>
-
-    <body onload="window.print()" style=" font-size: 13px;font-family: arial;">
-        <?php } else { ?>
-
-        <body style=" font-size: 13px; font-family: arial;margin: 0 10px;overflow-x: hidden;">
-            <?php } ?>
+    <body onload="window.print()" style="font-size: 14px; font-family: Arial; margin: 20px;">
+    <?php } else { ?>
+    <body style="font-size: 14px; font-family: Arial; margin: 20px;">
+    <?php } ?>
 
 
-            <div class="wrapper">
-                <!-- Main content -->
-                <section class="invoice">
-
-                    <?php $path="../";
+    <?php $path="../";
 					$result = query("SELECT * FROM info ",$path);
 					
 					for ($i = 0; $row = $result->fetch(); $i++) {
@@ -91,263 +84,139 @@
 						$info_mail = $row['email'];
 					}
 
-                   
-                    
-                    $action=$_GET['type'];
-                    
-
-
-					?>
-
-
-                    <div class="row">
-                        <!-- accepted payments column -->
-
-                        <div class="col-xs-6">
-                            <div class="col-xs-4">
-                                <img src="../img/logo/logo.jpg" width="140" alt="Logo" style="margin-bottom: 10px;">
-                            </div>
-                            <div class="col-xs-8">
-                                <h5>
-                                    <b><?php echo $info_name; ?></b> <br>
-
-                                    <?php echo $info_add; ?> <br>
-                                    <?php echo $info_con; ?> <br>
-                                    <a href="#" style="color:blue"><?php echo $info_mail; ?></a>
-                                </h5>
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-12">
-                            <hr>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <h3 style="text-align: center;">
-                                <?php if ($action == 2) {
-									echo "QUTATION";
-								} else {
-									echo "INVOICE";
-									
-								} ?>
-                            </h3>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-xs-7">
-                            <h5>
-
-                                <?php
-								$result = $db->prepare("SELECT * FROM job WHERE   id='$job_id'");
+   
+								$result = $db->prepare("SELECT * FROM project WHERE   id='$job_id'");
 								$result->bindParam(':userid', $date);
 								$result->execute();
 								for ($i = 0; $row = $result->fetch(); $i++) {
+									$id1 = $row['id']; // Corrected this line
 
-									$invoice = $row['invoice_name'];
-									$invoice_action = $row['invoice_action'];
-
-
-								} ?>
-
-
-
-
-
-                                <?php
-								$result = $db->prepare("SELECT * FROM sales WHERE   job_no='$job_id'");
-								$result->bindParam(':userid', $date);
-								$result->execute();
-								for ($i = 0; $row = $result->fetch(); $i++) {
-									$id1 = $row['transaction_id']; // Corrected this line
-
-									$cus_name = $row['customer_name'];
-                                    $cus_id=$row['customer_id'];
+									$cus_name = $row['company_name'];
+                                    $internal=$row['internal'];
                                     $address=$row['address'];
-									$discount=$row['discount'];
-                                   
-                                    $invo=$row['invoice_number'];
+                                    $cus_id=$row['company_id'];
 									$date=$row['date'];
 								} 
 								$phone=select_item('customer','contact','id='.$cus_id,'../');
 								?>
 
-                                <b>INVOICE TO:</b> <br>
-                                <?php echo $cus_name; ?> <br>
-                                <?php echo $address; ?> <br>
-                                <?php if($invoice_action != 0) {?>
-                                <b>Invoice Name: </b> <?php echo $invoice; ?> <br>
-                                <?php } ?>
-                                <b>Customer id: </b> <?php echo $cus_id; ?> <br>
-                                <b>Job Number: </b> <?php echo $job_id; ?><br>
-                                <b>Product List:</b><br>
-
-
-                            </h5>
-                        </div>
-                        <!-- /.col -->
-
-                        <div class="col-xs-5 pull-right">
-                            <h5 style="float:right">
-                                <b>No. #<?php echo $id1; ?></b> <br>
-
-                                <b> Date:</b> <?php echo $date; ?> <br>
-
-                                <br>
-                                <small>
-                                    Print Date: <?php echo date('Y-m-d'); ?> <br>
-                                    Print Time- <?php echo date('H:i:s'); ?>
-                                </small>
-                            </h5>
-                        </div>
-
-                    </div>
-
-
-                    <div class="box-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Qty</th>
-                                    <th>Price</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-									date_default_timezone_set("Asia/Colombo");
-									$tot_amount = 0;
-									$num = 0;
-
-									$result = $db->prepare("SELECT * FROM sales_list WHERE job_no = :job_no");
-									$result->bindParam(':job_no', $job_id);
-									$result->execute();
-
-									while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-										$num += 1;
-										$price = $row['price'] - ($row['dic'] / $row['qty']);
-										$amount = $price * $row['qty'];
-										$product_id = $row['product_id'];
-										$name = $row['product_id'] == 4 ? $row['about'] : $row['name'];
-										$name1 = '';
-
-										try {
-											$task_result = $db->prepare("SELECT * FROM sales_list_task WHERE job_no = :job_no AND product_id = :product_id");
-											$task_result->bindParam(':job_no', $job_id);
-											$task_result->bindParam(':product_id', $product_id);
-											$task_result->execute();
-
-											while ($task_row = $task_result->fetch(PDO::FETCH_ASSOC)) {
-												$name1 .=  "* " . htmlspecialchars($task_row['name']) . "<br>"; // Gather task names
-											}
-										} catch (PDOException $e) {
-											echo "Error: " . htmlspecialchars($e->getMessage());
-										}
-										
-									?>
-
-
-
-								<tr>
-    <td><?php echo $num; ?></td>
-    <td>
-        <?php echo $name; ?>
-        <?php if (!empty($name1)) { ?>
-        <div style="font-size: 0.85em; color: gray; padding-left: 15px;">
-            <?php echo $name1; ?>
-        </div>
-        <?php } ?>
-        <div style="font-size: 0.9em; color: black; padding-top: 5px;">
-            Basically provide a thorough and high-quality cleaning for every job
-        </div>
-    </td>
-    <td><?php echo $row['qty']; ?></td>
-    <td>Rs.<?php echo number_format($price, 2); ?></td>
-    <td>Rs.<?php echo number_format($amount, 2); ?></td>
-    <?php $tot_amount += $amount; ?>
-</tr>
-                                <?php } ?>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td>SUB Total: </td>
-                                    <th>Rs.<?php echo number_format($tot_amount, 2); ?></th>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td>Discount: </td>
-                                    <th>Rs.<?php echo number_format($discount, 2); ?></th>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"></td>
-                                    <td>NET Total: </td>
-                                    <th>Rs.<?php echo number_format($tot_amount - $discount, 2); ?></th>
-                                </tr>
-                            </tbody>
-                            <tfoot></tfoot>
-                        </table>
-
-
-                        <div class="row">
-
-
-                            <?php if(!$action==2){$action=1;} ?>
-                            <div class="col-xs-4" id="btn-box" style="display: flex;gap: 15px;justify-content: center;">
-                                <a href="print?id=<?php echo $job_id.'&type='.$action; ?>&print" class="btn btn-danger">
-                                    <i class="fa fa-print"></i> Print</a>
-                                <a href="../pdfd/table?id=<?php echo $job_id . '&type=' . $action; ?>&phone=<?php echo $phone ?> "
-                                    class="btn btn-success"> <i class="fa fa-whatsapp"></i> Whatsapp To
-                                    [<?php echo $phone; ?>]</a>
-                                <a href="../job_view?id=<?php echo base64_encode($job_id); ?>" class="btn btn-warning">
-                                    <i class="fa fa-home"></i> Home</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <br><br><br>
-                    <div class="row">
-                        <div class="col-md-12">Make all Cheques payable to "Advanced Cleaners"
-                            FOR ENQUIRIES Negombo -031228645 COLOMBO BRANCH - 112690944 <br>
-                            Thank you for your business!
-                        </div>
-                    </div>
-
-                    <br><br><br>
-                    <div class="row">
-                        <div class="col-xs-12" style="text-align: center;">
-                            This is a system generated document and signature is not required
-                        </div>
-                    </div>
-                </section>
+        <div style="max-width: 800px; margin: auto;">
+            <!-- Company Header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 10px;">
+                <div>
+                    <img src="../img/logo/logo.jpg" alt="Logo" width="120">
+                </div>
+                <div style="text-align: right;">
+                    <h2 style="margin: 0;"><?php echo $info_name; ?></h2>
+                    <p style="margin: 5px 0;"><?php echo $info_add; ?></p>
+                    <p style="margin: 5px 0;">Phone: <?php echo $info_con; ?></p>
+                    <p style="margin: 5px 0;">Email: <a href="#" style="color: blue;"><?php echo $info_mail; ?></a></p>
+                </div>
             </div>
-            <script>
-            async function send() {
-                try {
-                    // Get the selected product ID from the #mat_id dropdown (uncomment if needed)
-                    // let productId = $('#mat_id').val();
 
-                    // Fetch units for selected product
-                    const response = await fetch(
-                        `../pdf/invoice.php?id=<?php echo $job_id . '&type=' . $action; ?>`, {
-                            method: "GET",
-                            headers: {
-                                "Content-type": "application/json; charset=UTF-8"
-                            }
-                        });
+            <!-- Title 
+            <div style="text-align: center; margin: 20px 0;">
+                <h1 style="margin: 0;"><?php echo ($action == 2) ? "QUOTATION" : "INVOICE"; ?></h1>
+            </div>
 
-                    // Parse the response as JSON
-                    const json = await response.json();
-                    console.log(json);
+                            -->
 
-                    // Redirecting to job view page
-                    window.location.href = '../job_view?id=<?php echo base64_encode($job_id); ?>';
+            <!-- Customer Information -->
+            <div style="margin-bottom: 20px;">
+                <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px;">Customer Details</h3>
+                <p><strong>Customer Name:</strong> <?php echo $cus_name; ?></p>
+                <p><strong>Address:</strong> <?php echo $address; ?></p>
+                <p><strong>Phone:</strong> <?php echo $phone; ?></p>
+                <p><strong>Job Number:</strong> <?php echo $job_id; ?></p>
+                <p><strong>Invoice Number:</strong> <?php echo $id1; ?></p>
+                <p><strong>Date:</strong> <?php echo $date; ?></p>
+            </div>
 
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            }
-            </script>
-        </body>
+            <!-- Product Details -->
+            <div>
+                <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px;">Extra charges list</h3>
+                <?php
+                $tot_amount = 0;
+                $result = $db->prepare("SELECT * FROM gen_excharge_rec WHERE project_id = :job_no");
+                $result->bindParam(':job_no', $job_id);
+                $result->execute();
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $price = $row['price'];
+                   // $amount = $price * $row['qty'];
+                   // $tot_amount += $amount;
+                    ?>
+                    <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <p><strong>Extra charge Name:</strong> <?php echo $row['recored']; ?></p>
+                        <p><strong>Price:</strong> Rs.<?php echo number_format($price, 2); ?></p>
+                    </div>
+                <?php } ?>
+            </div>
+
+
+                        <!-- Product Details -->
+                        <div>
+                <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px;">Shift list</h3>
+                <?php
+                $tot_amount = 0;
+                $result = $db->prepare("SELECT * FROM gen_shift WHERE job_id = :job_no");
+                $result->bindParam(':job_no', $job_id);
+                $result->execute();
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $working_days = $row['working_days'];
+                     $employee_count = $row['employee_count'];
+                     $sup_count = $row['sup_count'];
+                     $in_time = $row['in_time'];
+                     $out_time = $row['out_time'];
+
+
+                    ?>
+                    <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <p><strong>In time:</strong> <?php echo $row['in_time']; ?></p>
+                        <p><strong>Out time:</strong> <?php echo $row['out_time']; ?></p>
+                        <p><strong>working days:</strong> <?php echo $row['working_days']; ?></p>
+                        <p><strong>supervisor count:</strong> <?php echo $row['sup_count']; ?></p>
+                        <p><strong>Employee count:</strong> <?php echo $row['employee_count']; ?></p>
+
+
+                    </div>
+                <?php } ?>
+            </div>
+
+                                   <!-- Product Details -->
+                                   <div>
+                <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px;">Special Note list</h3>
+                <?php
+                $tot_amount = 0;
+                $result = $db->prepare("SELECT * FROM gen_special_note_rec WHERE project_id = :job_no");
+                $result->bindParam(':job_no', $job_id);
+                $result->execute();
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
+
+
+                    ?>
+                    <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <?php echo $row['name']; ?></p>
+
+
+
+                    </div>
+                <?php } ?>
+            </div>
+
+
+
+
+            <!-- Footer -->
+            <div style="margin-top: 40px; text-align: center; font-size: 12px;">
+                <p>Make all Cheques payable to <strong>"Advanced Cleaners"</strong></p>
+                <p>Negombo: 031228645 | Colombo Branch: 112690944</p>
+                <p>Thank you for your business!</p>
+                <p><small>This is a system-generated document and does not require a signature.</small></p>
+            </div>
+        </div>
+    </body>
+</html>
+
 
 </html>

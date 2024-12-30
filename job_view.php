@@ -188,89 +188,91 @@ $_SESSION['SESS_BACK']='job_view';
                         echo $invoice;
                         ?>
                                         </p>
-                                        
+
                                     </div>
                                 </div>
 
-                                
+
                                 <?php } ?>
                             </div>
                         </div>
                     </div>
 
 
- 
+
 
 
 
 
                     <!-- Quotation -->
                     <div class="box box-info">
-    <div class="box-header">
-        <h3>Quotation</h3>
-    </div>
-
-    <div class="box-body">
-        <form action="save/shift_save.php" method="post">
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>In Time (<b style="color:brown">HH.mm</b>)</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="in_time" value="<?php echo date('H.i') ?>" required>
+                        <div class="box-header">
+                            <h3>Quotation</h3>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Out Time (<b style="color:brown">HH.mm</b>)</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="out_time" value="<?php echo date('H.i') ?>" required>
-                        </div>
-                    </div>
-                </div>
+                        <div class="box-body">
+                            <form action="save/shift_save.php" method="post">
+                                <div class="row">
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Note</label>
-                        <input type="text" class="form-control" name="note" required>
-                    </div>
-                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>In Time (<b style="color:brown">HH.mm</b>)</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="in_time"
+                                                    value="<?php echo date('H.i') ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Shift Price</label>
-                        <input type="number" class="form-control" name="price" required>
-                    </div>
-                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Out Time (<b style="color:brown">HH.mm</b>)</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="out_time"
+                                                    value="<?php echo date('H.i') ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>janitor Count</label>
-                        <input type="number" class="form-control" name="employee_count" required>
-                    </div>
-                </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Note</label>
+                                            <input type="text" class="form-control" name="note" required>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Supervicer Count</label>
-                        <input type="number" class="form-control" name="sup_count" required>
-                    </div>
-                </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Shift Price</label>
+                                            <input type="number" class="form-control" name="price" required>
+                                        </div>
+                                    </div>
 
-                <div class="col-md-12">
-    <div class="form-group">
-        <label>Working Days</label>
-        <div class="d-flex flex-column align-items-start gap-2">
-            <?php
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>janitor Count</label>
+                                            <input type="number" class="form-control" name="employee_count" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Supervicer Count</label>
+                                            <input type="number" class="form-control" name="sup_count" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Working Days</label>
+                                            <div class="d-flex flex-column align-items-start gap-2">
+                                                <?php
             $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
             foreach ($days as $day) {
                 echo "<div class='d-flex align-items-center'>
@@ -279,40 +281,40 @@ $_SESSION['SESS_BACK']='job_view';
                       </div>";
             }
             ?>
-        </div>
-    </div>
-</div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
-                <input type="hidden" name="job_id" value="<?php echo $id ?>">
+                                    <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
+                                    <input type="hidden" name="job_id" value="<?php echo $id ?>">
 
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <input type="hidden" value="1" name="id2">
-                        <button type="submit" class="btn btn-info btn-block btn-sm">
-                            <i class="fas fa-save"></i> Save
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="hidden" value="1" name="id2">
+                                            <button type="submit" class="btn btn-info btn-block btn-sm">
+                                                <i class="fas fa-save"></i> Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
 
-        <div class="box-body">
-            <table id="example2" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>In Time</th>
-                        <th>Out Time</th>
-                        <th>Working Days</th>
-                        <th>Note</th>
-                        <th>Price</th>
-                        <th>Employee Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
+                            <div class="box-body">
+                                <table id="example2" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>In Time</th>
+                                            <th>Out Time</th>
+                                            <th>Working Days</th>
+                                            <th>Note</th>
+                                            <th>Price</th>
+                                            <th>Employee Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
                     $result = select('gen_shift', '*','job_id='.$id);
                     while ($row = $result->fetch()) {
                         echo "<tr>
@@ -326,13 +328,13 @@ $_SESSION['SESS_BACK']='job_view';
                               </tr>";
                     }
                     ?>
-                </tbody>
-            </table>
-        </div>
+                                    </tbody>
+                                </table>
+                            </div>
 
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <?php
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <?php
                 $result = select('sales', '*', 'job_no = ' . $id);
                 $type = '';
                 if ($result) {
@@ -341,12 +343,12 @@ $_SESSION['SESS_BACK']='job_view';
                     }
                 }
                 ?>
-            </div>
-        </div>
-    </div>
-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Material -->
+                    <!-- Charges -->
                     <div class="box box-info">
                         <div class="box-header">
                             <h3> Charges <small>apply</small></h3>
@@ -361,8 +363,7 @@ $_SESSION['SESS_BACK']='job_view';
                                         <div class="form-group">
                                             <label>Extra Users</label>
                                             <select class="form-control select2 " id="mat_id" name="mat_id"
-                                                 style="width: 100%;" tabindex="1" autofocus
-                                                required>
+                                                style="width: 100%;" tabindex="1" autofocus required>
                                                 <?php 
                                                                         $result = select('gen_extracharges', '*');
                                                                         while ($row = $result->fetch()) { 
@@ -383,7 +384,7 @@ $_SESSION['SESS_BACK']='job_view';
                                         <div class="form-group">
                                             <label>Price</label>
                                             <input type="number" class="form-control" name="price" id="qty" step="0.001"
-                                                min="0" style="width: 100%;" >
+                                                min="0" style="width: 100%;">
                                         </div>
                                     </div>
 
@@ -391,7 +392,7 @@ $_SESSION['SESS_BACK']='job_view';
                                         <div class="form-group">
                                             <label>note</label>
                                             <input type="text" class="form-control" name="note" id="qty" "
-                                               style="width: 100%;">
+                                               style=" width: 100%;">
                                         </div>
                                     </div>
                                     <input type="hidden" name="job_id" value="<?php echo $id ?>">
@@ -436,7 +437,10 @@ $_SESSION['SESS_BACK']='job_view';
                                         <?php } ?>
                                     </tbody>
                                 </table>
+
                             </div>
+
+
 
 
                             <div class="row">
@@ -464,111 +468,79 @@ $_SESSION['SESS_BACK']='job_view';
                         </div>
                     </div>
 
-                                        <!-- Team -->
-                                        <div class="box box-info">
+                    <!-- Sp note -->
+                    <div class="box box-info">
                         <div class="box-header">
-                            <h3>Team <small>Add</small></h3>
+                            <h3>Special <small>Notes</small></h3>
                         </div>
 
-                        <div class="box-body <?php if ($action >= 2) {} else { echo 'd-none'; } ?>">
-                            <div class="col-md-6">
-                                <small>Select a few stations that provide the service from the selector below and press
-                                    the save button</small>
-                                <form action="save/job/job_team.php" method="post">
-                                    <div class="input-group input-group-sm">
-                                        <select class="form-control select2" name="location_id[]" multiple="multiple"
-                                            data-placeholder="Select Team" style="width: 100%;" autocomplete="off"
-                                            required>
-                                            <?php 
-                                            $set_cat = 1;
-                                            $result = select('employee'); 
-                                            for ($i = 0; $row = $result->fetch(); $i++) { 
-                                                $set_cat = 0; 
-                                            ?>
-                                            <option value="<?php echo $row['id'] ?>"><?php echo $row['username'] ?>
-                                            </option>
+                        <div class="box-body">
+                            <form action="save/job/sp_note_save.php?id=<?php echo $id ?>" method="post">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h4>Select Notes</h4>
+                                            <?php
+                                            $result = select('gen_special_note', '*');
+                                            while ($row = $result->fetch()) { ?>
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" name="notes[]"
+                                                    id="checkbox_<?php echo $row['id']; ?>"
+                                                    value="<?php echo $row['id']; ?>" class="product-checkbox">
+                                                <label for="checkbox_<?php echo $row['id']; ?>"
+                                                    class="product-label"><?php echo $row['name']; ?></label>
+                                            </div>
                                             <?php } ?>
-                                        </select>
-                                        <span class="input-group-btn">
-                                            <button type="submit" id="u2" class="btn btn-info btn-flat">Save</button>
-                                        </span>
-                                        <input type="hidden" name="company_id" value="<?php echo $company_id; ?>">
-                                        <input type="hidden" name="job_id" value="<?php echo $id ?>">
-                                    </div>
-                                </form>
-                            </div>
+                                        </div>
 
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <?php 
-                                $result = select('job_team', '*', 'job_id=' . $id);
-                                for ($i = 0; $row = $result->fetch(); $i++) { 
-                                    $emp_id = $row['emp_id'];
-                                    $emp_details = select('employee', '*', "id = '$emp_id'");
-                                    while ($emp = $emp_details->fetch()) { 
-                                        if ($emp['des'] == 'Driver') { 
-                                ?>
-                                    <div class="col-md-6">
-                                        <div class="alert alert-warning alert-dismissible">
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-hidden="true">&times;</button>
-                                            <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                                            <p><?php echo $emp['username']; ?> is a Driver. What is the consumer's
-                                                decision about this Quotation?</p>
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <input class="form-control" type="text" placeholder="Job Date"
-                                                        id="datepicker">
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <button onclick="quotation1(2);this.disabled = true;"
-                                                        class="btn bg-red">Rejected</button>
-                                                    <button onclick="quotation1(1);this.disabled = true;"
-                                                        class="btn bg-green">Accept</button>
-                                                </div>
-                                            </div>
+                                    <input type="hidden" name="job_id" value="<?php echo $id ?>">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="hidden" value="1" name="id2">
+                                            <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
+                                                value="Save" class="btn btn-info btn-sm">
                                         </div>
                                     </div>
-                                    <?php }}} ?>
                                 </div>
+                                </div>
+                            </form>
+
+                            <hr>
+
+                            <div class="box-body">
+                                <h4>Saved Notes</h4>
+                                <table id="example2" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Record</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $result = select('gen_special_note_rec', '*', 'project_id=' . $id);
+                                        while ($row = $result->fetch()) { ?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td>
+                                                <a class="btn btn-sm btn-danger"
+                                                    onclick="confirmDelete2(<?php echo $row['id']; ?>)">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <?php 
-                                    $result = select('job_team', '*', 'job_id=' . $id); 
-                                    for ($i = 0; $row = $result->fetch(); $i++) { 
-                                    ?>
-                                    <div class="col-md-6">
-                                        <div class="box box-primary collapsed-box box-solid">
-                                            <div class="box-header with-border" style="border-radius: 5px;">
-                                                <h3 class="box-title"><?php echo $row['name'] ?></h3>
-                                                <div class="box-tools pull-right">
-                                                    <button type="button" class="btn btn-box-tool"
-                                                        data-widget="collapse">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="box-body">
-                                                <table id="example2" class="table table-bordered table-striped">
-                                                    <?php 
-                                                    $loca_id = $row['emp_id']; 
-                                                    $result1 = select('employee', '*', 'id=' . $loca_id); 
-                                                    for ($i = 0; $row1 = $result1->fetch(); $i++) { 
-                                                    ?>
-                                                    <tr width="100%">
-                                                        <td><?php echo $row1['des'] ?></td>
-                                                        <td><?php echo $row1['phone_no'] ?></td>
-                                                    </tr>
-                                                    <?php } ?>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
-                                </div>
-                            </div>
+                            <a class="pull-right" href="save/print.php?id=<?php echo base64_decode($_GET['id']); ?>">
+                                <button class="btn btn-sm btn-primary" onclick="this.disabled = true; clikup();"
+                                    id="generate_invo">Generate Quotation</button>
+                            </a>
                         </div>
                     </div>
 
