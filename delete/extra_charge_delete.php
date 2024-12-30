@@ -1,6 +1,6 @@
 <?php
-include 'connect.php'; // include your database connection
-include 'config.php'; // include your config file
+include '../connect.php'; // include your database connection
+include '../config.php'; // include your config file
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

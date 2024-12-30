@@ -282,7 +282,7 @@ $_SESSION['SESS_BACK']='job_view';
                                             <label>Working Days</label>
                                             <div class="d-flex flex-column align-items-start gap-2">
                                                 <?php
-            $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
             foreach ($days as $day) {
                 echo "<div class='d-flex align-items-center'>
                         <input class='form-check-input me-2' type='checkbox' name='w_days[]' value='$day' id='$day'>
@@ -414,7 +414,7 @@ $_SESSION['SESS_BACK']='job_view';
                                     </div>
                                     <input type="hidden" name="job_id" value="<?php echo $id ?>">
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="form-group">
                                             <input type="hidden" value="1" name="id2">
                                             <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
@@ -423,6 +423,10 @@ $_SESSION['SESS_BACK']='job_view';
                                     </div>
                                 </div>
                             </form>
+
+                            <a href="extra_charge_add.php">
+                            <button class="btn btn-sm btn-info">Add charges</button>
+                        </a>
 
                             <div class="box-body">
                                 <table id="example2" class="table table-bordered table-striped">
