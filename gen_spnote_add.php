@@ -18,7 +18,7 @@ $_SESSION['SESS_FORM'] = 'product';
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                extra charges 
+                Special note  
                 <small>Add and preview</small>
             </h1>
         </section>
@@ -29,9 +29,9 @@ $_SESSION['SESS_FORM'] = 'product';
 
                     <div class="row">
                         <div class="col-md-3">
-                            <h3 class="box-title">charges Data</h3>
+                            <h3 class="box-title">Notes Data</h3>
                             
-                            <span onclick="click_open(1)" class="btn btn-primary btn-sm pull-right mx-2">Add Charges
+                            <span onclick="click_open(1)" class="btn btn-primary btn-sm pull-right mx-2">Add Notes
                                 
                             </span>
 
@@ -60,18 +60,16 @@ $_SESSION['SESS_FORM'] = 'product';
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
                                 <th>#</th>
                             </tr>
 
                         </thead>
                         <tbody>
-                            <?php $result = select('gen_extracharges','*');
+                            <?php $result = select('gen_special_note','*');
                             for ($i = 0; $row = $result->fetch(); $i++) { ?>
                             <tr>
                                 <th><?php echo $row['id']  ?></th>
                                 <th><?php echo $row['name']  ?></th>
-                                <th><?php echo $row['des']  ?></th>
                                 <th>
                                 <?php if ($user_level == 1): ?>
                                     <a class="btn btn-sm btn-danger" onclick="confirmDelete(<?php echo $row['id']; ?>)">Delete</a>
@@ -173,35 +171,30 @@ $_SESSION['SESS_FORM'] = 'product';
 
     <div class="container-up <?php echo $con; ?>" id="container_up" >
         <div class="row w-70">
-            <div class="box box-success popup" id="popup_1" style="width: 70%;">
+            <div class="box box-success popup" id="popup_1" style="width: 80%;">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        Extra Charges save
+                        Special note save
                     </h3>
                     <small onclick="click_close(1)" class="btn btn-sm btn-success pull-right"><i
                             class="fa fa-times"></i></small>
                 </div>
 
                 <div class="box-body d-block">
-                    <form method="POST" action="save/extra_charge_save.php">
+                    <form method="POST" action="save/gen_spnote_save.php">
 
                         <div class="row" style="display: block;">
 
 
 
-                            <div class="col-md-11">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" name="name" value="" class="form-control" autocomplete="off">
-                                </div>
-                            </div>
 
 
 
-                            <div class="col-md-11">
+
+                            <div class="col-md-12s">
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea type="text" name="des" cols="70" rows="10" value="" class="form-control" autocomplete="off"></textarea>
+                                    <textarea type="text" name="des" cols="100" rows="10" value="" class="form-control" autocomplete="off"></textarea>
                                 </div>
                             </div>
 
@@ -305,7 +298,7 @@ function click_open(i) {
     function confirmDelete(id) {
                 if (confirm('Are you sure you want to delete this item?')) {
                     // Redirect to a PHP page that handles the deletion
-                    window.location.href = 'delete/extra_charge_delete.php?id=' + id;
+                    window.location.href = 'delete/gen_spnote_delete.php?id=' + id;
                 }
             }
 

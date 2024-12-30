@@ -527,6 +527,10 @@ $_SESSION['SESS_BACK']='job_view';
                                 </div>
                             </form>
 
+                            <a href="gen_spnote_add.php">
+                            <button class="btn btn-sm btn-info">Add Notes</button>
+                        </a>
+
                             <hr>
 
                             <div class="box-body">
