@@ -288,6 +288,7 @@ Client. The obligation will end on the termination of this Agreement. </p>
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $close_date = $row['close_date'];
                 $open_date = $row['open_date'];
+            }
             ?>
             <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
                 <p>This Agreement is valid for a period</p>
@@ -302,7 +303,6 @@ reasons by giving ONE MONTH’S notice in writing to PRTY of the FIRST PART.
 </p> 
 
             </div>
-            <?php } ?>
         </div>
 
         <div style="font-family: Arial, sans-serif; color: #333;">

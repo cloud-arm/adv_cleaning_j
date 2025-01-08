@@ -343,14 +343,19 @@ $_SESSION['SESS_BACK']='job_view';
                         $result = select('gen_shift', '*','job_id='.$id);
                         while ($row = $result->fetch()) {
                             echo "<tr>
-                                    <td>{$row['id']}</td>
-                                    <td>{$row['in_time']}</td>
-                                    <td>{$row['out_time']}</td>
-                                    <td>{$row['working_days']}</td>
-                                    <td>{$row['note']}</td>
-                                    <td>{$row['price']}</td>
-                                    <td>{$row['employee_count']}</td>
-                                </tr>";
+                            <td>{$row['id']}</td>
+                            <td>{$row['in_time']}</td>
+                            <td>{$row['out_time']}</td>
+                            <td>{$row['working_days']}</td>
+                            <td>{$row['note']}</td>";
+                    
+                    if ($shift == 2) {
+                        echo "<td>{$row['price']}</td>";
+                    }
+                    
+                    echo "<td>{$row['employee_count']}</td>
+                        </tr>";
+                    
                         }
                         ?>
                                     </tbody>
