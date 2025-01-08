@@ -11,11 +11,13 @@ $insertData = array(
         "address" => $_POST['address'],
         "type" => $_POST['type'],
         "email" => $_POST['email'],
+        "reg_no" => $_POST['reg_no'],   
+
     ),
     "other" => array(
     ),
 );
-insert("company", $insertData,'../');
+insert("gen_company", $insertData,'../');
 
 
 header("location: ../company");

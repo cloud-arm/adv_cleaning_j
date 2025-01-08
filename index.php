@@ -382,7 +382,7 @@ $user_level = $_SESSION['USER_LEWAL'];
                                     <select class="form-control select2 " id="com_id" name="com_id"
                                             style="width: 100%;" tabindex="1" autocomplete="off">
                                             <?php 
-                                                                        $result = select('company', '*');
+                                                                        $result = select('gen_company', '*');
                                                                         while ($row = $result->fetch()) { 
                                                                         $com_id = $row['id']; 
                                                                     ?>

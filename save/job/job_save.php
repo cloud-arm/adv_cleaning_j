@@ -8,7 +8,7 @@ $internal=$_POST['int_name'];
 $shift_type = $_POST['shift_type'];
 
 
-$r1=select_item('company','name','id='.$com_id,'../../');
+$r1=select_item('gen_company','name','id='.$com_id,'../../');
 
 $r2=select_item('internal_company','name','id='.$internal,'../../');
 

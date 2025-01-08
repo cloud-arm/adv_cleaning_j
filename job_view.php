@@ -38,6 +38,14 @@ $_SESSION['SESS_BACK']='job_view';
                 $company_id=$row['company_id'];
                 $note=$row['note'];
                 $action=$row['action'];
+                $shift_type_id=$row['shift_type_id'];
+            }?>
+
+<?php 
+            $result=select('gen_company','*','id='.$company_id); 
+            for ($i = 0; $row = $result->fetch(); $i++) { 
+                $reg_no=$row['reg_no'];
+
             }?>
         </section>
         <section class="content">
@@ -243,7 +251,7 @@ $_SESSION['SESS_BACK']='job_view';
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Note</label>
-                                            <input type="text" class="form-control" name="note" >
+                                            <input type="text" class="form-control" name="note">
                                         </div>
                                     </div>
 
@@ -261,7 +269,7 @@ $_SESSION['SESS_BACK']='job_view';
                                         </div>
                                     </div>
 
-                                     <?php } ?>
+                                    <?php } ?>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
@@ -282,14 +290,14 @@ $_SESSION['SESS_BACK']='job_view';
                                             <label>Working Days</label>
                                             <div class="d-flex flex-column align-items-start gap-2">
                                                 <?php
-            $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-            foreach ($days as $day) {
-                echo "<div class='d-flex align-items-center'>
-                        <input class='form-check-input me-2' type='checkbox' name='w_days[]' value='$day' id='$day'>
-                        <label for='$day' class='badge bg-green'>$day</label>
-                      </div>";
-            }
-            ?>
+                                                    $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+                                                    foreach ($days as $day) {
+                                                        echo "<div class='d-flex align-items-center'>
+                                                                <input class='form-check-input me-2' type='checkbox' name='w_days[]' value='$day' id='$day'>
+                                                                <label for='$day' class='badge bg-green'>$day</label>
+                                                            </div>";
+                                                    }
+                                                    ?>
                                             </div>
                                         </div>
                                     </div>
@@ -332,19 +340,19 @@ $_SESSION['SESS_BACK']='job_view';
                                     </thead>
                                     <tbody>
                                         <?php
-                    $result = select('gen_shift', '*','job_id='.$id);
-                    while ($row = $result->fetch()) {
-                        echo "<tr>
-                                <td>{$row['id']}</td>
-                                <td>{$row['in_time']}</td>
-                                <td>{$row['out_time']}</td>
-                                <td>{$row['working_days']}</td>
-                                <td>{$row['note']}</td>
-                                <td>{$row['price']}</td>
-                                <td>{$row['employee_count']}</td>
-                              </tr>";
-                    }
-                    ?>
+                        $result = select('gen_shift', '*','job_id='.$id);
+                        while ($row = $result->fetch()) {
+                            echo "<tr>
+                                    <td>{$row['id']}</td>
+                                    <td>{$row['in_time']}</td>
+                                    <td>{$row['out_time']}</td>
+                                    <td>{$row['working_days']}</td>
+                                    <td>{$row['note']}</td>
+                                    <td>{$row['price']}</td>
+                                    <td>{$row['employee_count']}</td>
+                                </tr>";
+                        }
+                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -352,14 +360,14 @@ $_SESSION['SESS_BACK']='job_view';
                             <div class="row">
                                 <div class="col-md-12 text-right">
                                     <?php
-                $result = select('sales', '*', 'job_no = ' . $id);
-                $type = '';
-                if ($result) {
-                    while ($row = $result->fetch()) {
-                        $type = $row['pay_type'];
-                    }
-                }
-                ?>
+                            $result = select('sales', '*', 'job_no = ' . $id);
+                            $type = '';
+                        if ($result) {
+                            while ($row = $result->fetch()) {
+                                $type = $row['pay_type'];
+                            }
+                        }
+                    ?>
                                 </div>
                             </div>
                         </div>
@@ -425,8 +433,8 @@ $_SESSION['SESS_BACK']='job_view';
                             </form>
 
                             <a href="extra_charge_add.php">
-                            <button class="btn btn-sm btn-info">Add charges</button>
-                        </a>
+                                <button class="btn btn-sm btn-info">Add charges</button>
+                            </a>
 
                             <div class="box-body">
                                 <table id="example2" class="table table-bordered table-striped">
@@ -514,16 +522,16 @@ $_SESSION['SESS_BACK']='job_view';
                                             <?php } ?>
                                         </div>
 
-                                    <input type="hidden" name="job_id" value="<?php echo $id ?>">
+                                        <input type="hidden" name="job_id" value="<?php echo $id ?>">
 
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="hidden" value="1" name="id2">
-                                            <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
-                                                value="Save" class="btn btn-info btn-sm">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <input type="hidden" value="1" name="id2">
+                                                <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
+                                                    value="Save" class="btn btn-info btn-sm">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </form>
 
@@ -565,9 +573,99 @@ $_SESSION['SESS_BACK']='job_view';
                                     id="generate_invo">Generate Quotation</button>
                             </a>
                             <a href="gen_spnote_add.php">
-                            <button class="btn btn-sm btn-warning">Add Notes</button>
-                        </a>
+                                <button class="btn btn-sm btn-warning">Add Notes</button>
+                            </a>
                         </div>
+                    </div>
+
+                    <!-- agreement -->
+
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3> Agreement <small>Details</small></h3>
+                        </div>
+
+                        <div class="box-body">
+                        <form action="save/job/agreement_save.php?id=<?php echo $id; ?>" method="post">
+    <div class="row">
+        <!-- 1st Party Name -->
+        <div class="col-md-3">
+            <label style="font-weight: bold;">1st Party Name</label>
+            <div style="border: 1px solid red; background-color: #ffe6e6; padding: 10px; border-radius: 5px; color: #333;">
+                <h4 style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($company); ?></h4>
+            </div>
+        </div>
+
+        <!-- Register Number -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Register Number</label>
+                <input type="text" name="reg_no" class="form-control" value="<?php echo htmlspecialchars($reg_no); ?>" readonly>
+            </div>
+        </div>
+
+        <!-- Open Date -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Open Date</label>
+                <input class="form-control" type="text" id="open_date" name="open_date" placeholder="Select date" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+                <div class="form-group">
+                    <label>Close Date</label>
+                    <input class="form-control" type="text" id="datepicker1" name="close_date" placeholder="Select date" autocomplete="off">
+                </div>
+            </div>
+
+        <!-- 2nd Party Name -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>2nd Party Name</label>
+                <?php
+                $result = select('info', '*');
+                $owner = ''; // Default value to avoid undefined variable warnings
+                $nic_no = '';
+                while ($row = $result->fetch()) { 
+                    $owner = $row['owner'];
+                    $nic_no = $row['nic_no'];
+                }
+                ?>
+                <input type="text" class="form-control" name="owner" value="<?php echo htmlspecialchars($owner); ?>" readonly>
+            </div>
+        </div>
+
+        <!-- 2nd Party ID -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>2nd Party ID Number</label>
+                <input type="text" class="form-control" name="nic" value="<?php echo htmlspecialchars($nic_no); ?>" readonly>
+            </div>
+        </div>
+
+        <!-- Hidden Fields -->
+        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($id); ?>">
+        <input type="hidden" name="company" value="<?php echo htmlspecialchars($company); ?>">
+        <input type="hidden" name="id2" value="<?php echo htmlspecialchars($shift_type_id); ?>">
+
+
+        <!-- Save Button -->
+        <div class="col-md-3">
+            <div class="form-group">
+                <input type="submit" style="margin-top: 23px; width: 100%;" id="u3" value="genarate agreement" class="btn btn-info btn-sm">
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+    <!-- Table for Fix Materials -->
+
+</div>
+
                     </div>
 
                     <!-- Pricing -->
@@ -1215,6 +1313,16 @@ $_SESSION['SESS_BACK']='job_view';
 
     });
     </script>
+
+<script>
+    // Get today's date in the format YYYY-MM-DD
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+
+    // Set the value of the input field to today's date
+    document.getElementById('open_date').value = formattedDate;
+</script>
+
     <script>
     function price_type() {
         var select = document.getElementById('price_item');

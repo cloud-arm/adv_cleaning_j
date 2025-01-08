@@ -47,18 +47,18 @@ $user_level = $_SESSION['USER_LEWAL'];
             if ($user_level != 5) {
                 // For non-level 5 users, show all jobs or filter by customer type
                 if (!isset($_GET['type']) || $_GET['type'] == 'all') {
-                    $result = select('company', '*');
+                    $result = select('gen_company', '*');
                 } else {
-                    $result = select('company', '*', "type='" . $_GET['type'] . "'");
+                    $result = select('gen_company', '*', "type='" . $_GET['type'] . "'");
                 }
             } else if ($user_level == 5) {
                 // For level 5 users, default to showing retail jobs
                 if (!isset($_GET['type']) || $_GET['type'] == 'retail') {
                     // If no type is set or type is 'retail', show retail jobs
-                    $result = select('company', '*', "type='retail'");
+                    $result = select('gen_company', '*', "type='retail'");
                 } else {
                     // In case someone manually tries to set another type, force retail jobs
-                    $result = select('company', '*', "type='retail'");
+                    $result = select('gen_company', '*', "type='retail'");
                 }
             }
 
@@ -152,6 +152,10 @@ $user_level = $_SESSION['USER_LEWAL'];
                                 <div class="form-group">
                                     <label>Address</label>
                                     <input type="text" name="address" class="form-control" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label>company Reg No.</label>
+                                    <input type="text" name="reg_no" class="form-control" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <label>Type</label>
