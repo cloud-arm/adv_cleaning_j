@@ -57,6 +57,6 @@ echo $job_id;
 if($shift_type_id==1){
     header("Location: ../print_agreement1.php?id=$job_id & type=1");
 }else{
-//header("Location: ../../job_view.php?id=$job_id");
+header("Location: ../print_agreement1.php?id=$job_id & type=1");
 }
 exit();
