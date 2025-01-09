@@ -109,7 +109,7 @@
 
     ?>
 
-    <div style="max-width: 900px; margin: auto; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
+    <div style="max-width: 900px; margin: auto; background-color: #fff; border-radius: 8px; padding: 20px;">
         <!-- Company Header -->
         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 15px;">
             <div>
@@ -143,7 +143,7 @@
         if($type ==1){ ?>
             <div style="margin-bottom: 20px;">
             <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Agreement details</h3>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <div style="margin-bottom: 10px; padding: 10px;  border-radius: 5px; background-color: #f9f9f9;">
             <p>
                 <strong><?php echo $name2; ?></strong>, registered under Company No. <strong><?php echo $reg_no; ?></strong> 
                 (hereinafter referred to as the <strong>"First Party"</strong>), 
@@ -206,7 +206,7 @@
         $jenitors = $row['employee_count'];
         $supervisors = $row['sup_count'];
     ?>
-<div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;  display: flex; flex-direction: column; justify-content: space-between;">
+<div style="margin-bottom: 10px; padding: 10px;  border-radius: 5px;  display: flex; flex-direction: column; justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
         <p><strong> Janitors:</strong> <?php echo($row['employee_count']); ?></p>
         <p><strong> Supervisors:</strong> <?php echo($row['sup_count']); ?></p>
@@ -226,12 +226,12 @@
         <div style="margin-bottom: 20px;">
             <h5>Special Notes</h5>
             
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
+            <div style="margin-bottom: 10px; padding: 10px;  border-radius: 5px; ">
             <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor.</p>
 
             </div>
 
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <div style="margin-bottom: 10px; padding: 10px;  border-radius: 5px;">
             <p>Please note quotation 
             validity period is 45 days from its issuing date</p>
             </div>
@@ -243,7 +243,7 @@
             
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+            <div style="margin-bottom: 10px; padding: 10px; border-radius: 5px;">
                 <p><?php echo $row['name']; ?></p>
             </div>
             <?php } ?>
@@ -269,7 +269,7 @@
             $result->execute();
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
+            <div style="margin-bottom: 10px; padding: 10px; border-radius: 5px; ">
                 <p><?php echo $row['recored']; ?></p>
                 <p><strong> Price:</strong> Rs. <?php echo number_format($row['price'], 2); ?></p>
             </div>
@@ -298,20 +298,18 @@
 
         <div style="margin-bottom: 20px;">
             <h5>5.Confidentiality  </h5>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
-            <p> a. Confidential information refers to any data or information relating 
-to the business of the Client which would reasonably be considered 
-to be proprietary to the client including. But not limited to, accounting 
-records, business processes, and Client records and that is not 
-generally known in the industry of the Client and where the release 
-of that confidential information could reasonably be expected harm 
-to the Client. 
-<br> <br>
-
-b. The Service Provider agrees that they will not disclose, divulge, 
-reveal, report or use, for any purpose, any confidential information 
-which the Cleaning service has obtained, except as authorized by the 
-Client. The obligation will end on the termination of this Agreement.</p>
+            <div style="margin-bottom: 10px; padding: 10px; border-radius: 5px; ">
+            <?php
+            $result = $db->prepare("SELECT * FROM gen_confident WHERE job_no = :job_no");
+            $result->bindParam(':job_no', $job_id);
+            $result->execute();
+            
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+            <div style="margin-bottom: 10px; padding: 10px; border-radius: 5px;">
+                <p><?php echo $row['name']; ?></p>
+            </div>
+            <?php } ?>
 
             </div>
 
@@ -344,9 +342,9 @@ Client. The obligation will end on the termination of this Agreement.</p>
         
 
         <div style="font-family: Arial, sans-serif; color: #333;">
-    <h3 style="border-bottom: 2px solid #007BFF; padding-bottom: 5px; color: #007BFF;">Payment Details</h3>
+    <h3 style="padding-bottom: 5px;">Payment Details</h3>
 
-    <div style="margin-bottom: 15px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; line-height: 1.6;">
+    <div style="margin-bottom: 15px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; line-height: 1.6;">
         <p>Payments should be made via cheques payable to <strong>ADVANCED CLEANING SERVICES (PRIVATE) LIMITED</strong> 
         or through online transfers to the bank account provided below. Payments must be completed within 
         <strong>14 days</strong> of receiving an invoice for the preceding month as the monthly charge for cleaning services.</p>

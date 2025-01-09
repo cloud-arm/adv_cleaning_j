@@ -629,12 +629,12 @@ $_SESSION['SESS_BACK']='job_view';
                             </form>
 
                             <div class="box-body">
-                                <h4>Saved Notes</h4>
+                                <h4>Saved confident recored</h4>
                                 <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Record</th>
+                                            <th>name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
