@@ -41,7 +41,7 @@ $_SESSION['SESS_BACK']='job_view';
                 $shift_type_id=$row['shift_type_id'];
             }?>
 
-<?php 
+            <?php 
             $result=select('gen_company','*','id='.$company_id); 
             for ($i = 0; $row = $result->fetch(); $i++) { 
                 $reg_no=$row['reg_no'];
@@ -583,6 +583,8 @@ $_SESSION['SESS_BACK']='job_view';
                         </div>
                     </div>
 
+
+
                     <!-- agreement -->
 
                     <div class="box box-info">
@@ -590,86 +592,189 @@ $_SESSION['SESS_BACK']='job_view';
                             <h3> Agreement <small>Details</small></h3>
                         </div>
 
+                         <div class="box-body">
+                            <form action="save/confident_save.php" method="post">
+                                <div class="row">
+
+
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>confident</label>
+
+                                        <textarea type="text" name="confident" cols="50" rows="10"  class="form-control" autocomplete="off"></textarea>
+
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Hidden Fields -->
+                                    <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($id); ?>">
+                                    <input type="hidden" name="company"
+                                        value="<?php echo htmlspecialchars($company); ?>">
+                                    <input type="hidden" name="company_id"
+                                        value="<?php echo htmlspecialchars($company_id); ?>">
+
+
+
+
+                                    <!-- Save Button -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
+                                                value="save confidentiol" class="btn btn-info btn-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="box-body">
+                                <h4>Saved Notes</h4>
+                                <table id="example2" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Record</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $result = select('gen_confident', '*', 'job_no=' . $id);
+                                        while ($row = $result->fetch()) { ?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td>
+                                                <a class="btn btn-sm btn-danger"
+                                                    onclick="confirmDelete2(<?php echo $row['id']; ?>)">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+                            <!-- Table for Fix Materials -->
+
+                        </div>
+
                         <div class="box-body">
-                        <form action="save/job/agreement_save.php?id=<?php echo $id; ?>" method="post">
-    <div class="row">
-        <!-- 1st Party Name -->
-        <div class="col-md-3">
-            <label style="font-weight: bold;">1st Party Name</label>
-            <div style="border: 1px solid red; background-color: #ffe6e6; padding: 10px; border-radius: 5px; color: #333;">
-                <h4 style="margin: 0; font-weight: bold;"><?php echo htmlspecialchars($company); ?></h4>
-            </div>
-        </div>
+                            <form action="save/job/agreement_save.php?id=<?php echo $id; ?>" method="post">
+                                <div class="row">
+                                    <!-- 1st Party Name -->
+                                    <div class="col-md-3">
+                                        <label style="font-weight: bold;">1st Party Name</label>
+                                        <div
+                                            style="border: 1px solid red; background-color: #ffe6e6; padding: 10px; border-radius: 5px; color: #333;">
+                                            <h4 style="margin: 0; font-weight: bold;">
+                                                <?php echo htmlspecialchars($company); ?></h4>
+                                        </div>
+                                    </div>
 
-        <!-- Register Number -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Register Number</label>
-                <input type="text" name="reg_no" class="form-control" value="<?php echo htmlspecialchars($reg_no); ?>" readonly>
-            </div>
-        </div>
-
-        <!-- Open Date -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>Open Date</label>
-                <input class="form-control" type="text" id="open_date" name="open_date" placeholder="Select date" autocomplete="off">
-            </div>
-        </div>
-
-        <div class="col-md-3">
-                <div class="form-group">
-                    <label>Close Date</label>
-                    <input class="form-control" type="text" id="datepicker1" name="close_date" placeholder="Select date" autocomplete="off">
-                </div>
-            </div>
-
-        <!-- 2nd Party Name -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>2nd Party Name</label>
-                <?php
-                $result = select('info', '*');
-                $owner = ''; // Default value to avoid undefined variable warnings
-                $nic_no = '';
-                while ($row = $result->fetch()) { 
-                    $owner = $row['owner'];
-                    $nic_no = $row['nic_no'];
-                }
-                ?>
-                <input type="text" class="form-control" name="owner" value="<?php echo htmlspecialchars($owner); ?>" readonly>
-            </div>
-        </div>
-
-        <!-- 2nd Party ID -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <label>2nd Party ID Number</label>
-                <input type="text" class="form-control" name="nic" value="<?php echo htmlspecialchars($nic_no); ?>" readonly>
-            </div>
-        </div>
-
-        <!-- Hidden Fields -->
-        <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($id); ?>">
-        <input type="hidden" name="company" value="<?php echo htmlspecialchars($company); ?>">
-        <input type="hidden" name="id2" value="<?php echo htmlspecialchars($shift_type_id); ?>">
-
-
-        <!-- Save Button -->
-        <div class="col-md-3">
-            <div class="form-group">
-                <input type="submit" style="margin-top: 23px; width: 100%;" id="u3" value="genarate agreement" class="btn btn-info btn-sm">
-            </div>
-        </div>
-    </div>
-</form>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Posision</label>
+                                            <input type="text" class="form-control" name="posision" id="posision"
+                                                style=" width: 100%;">
+                                        </div>
+                                    </div>
 
 
 
+                                                                       <!-- Register Number -->
 
-    <!-- Table for Fix Materials -->
 
-</div>
+                                    <!-- Register Number -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Register Number</label>
+                                            <input type="text" name="reg_no" class="form-control"
+                                                value="<?php echo htmlspecialchars($reg_no); ?>" readonly>
+                                        </div>
+                                    </div>
+
+                                    <!-- Open Date -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Open Date</label>
+                                            <input class="form-control" type="text" id="open_date" name="open_date"
+                                                placeholder="Select date" autocomplete="off">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Close Date</label>
+                                            <input class="form-control" type="text" id="datepicker1" name="close_date"
+                                                placeholder="Select date" autocomplete="off">
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- 2nd Party Name -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>2nd Party Name</label>
+                                            <?php
+                                                $result = select('info', '*');
+                                                $owner = ''; // Default value to avoid undefined variable warnings
+                                                $nic_no = '';
+                                                while ($row = $result->fetch()) { 
+                                                    $owner = $row['owner'];
+                                                    $nic_no = $row['nic_no'];
+                                                }
+                                                ?>
+                                            <input type="text" class="form-control" name="owner"
+                                                value="<?php echo htmlspecialchars($owner); ?>" readonly>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2nd Party ID -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>2nd Party ID Number</label>
+                                            <input type="text" class="form-control" name="nic"
+                                                value="<?php echo htmlspecialchars($nic_no); ?>" readonly>
+                                        </div>
+                                    </div>
+
+
+
+                                    <!-- Hidden Fields -->
+                                    <input type="hidden" name="job_id" value="<?php echo htmlspecialchars($id); ?>">
+                                    <input type="hidden" name="company"
+                                        value="<?php echo htmlspecialchars($company); ?>">
+                                    <input type="hidden" name="company_id"
+                                        value="<?php echo htmlspecialchars($company_id); ?>">
+
+                                    <input type="hidden" name="id2"
+                                        value="<?php echo htmlspecialchars($shift_type_id); ?>">
+
+
+                                    <!-- Save Button -->
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="submit" style="margin-top: 23px; width: 100%;" id="u3"
+                                                value="genarate agreement" class="btn btn-info btn-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+                            <!-- Table for Fix Materials -->
+
+                        </div>
 
                     </div>
 
@@ -1319,14 +1424,14 @@ $_SESSION['SESS_BACK']='job_view';
     });
     </script>
 
-<script>
+    <script>
     // Get today's date in the format YYYY-MM-DD
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0];
 
     // Set the value of the input field to today's date
     document.getElementById('open_date').value = formattedDate;
-</script>
+    </script>
 
     <script>
     function price_type() {

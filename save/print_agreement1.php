@@ -84,6 +84,7 @@
         $info_mail = $row['email'];
         $owner = $row['owner'];
         $nic = $row['nic_no']; 
+        $posision = $row['position'];
     }
 
     $action=$_GET['type'];
@@ -102,6 +103,7 @@
     $phone = select_item('gen_company', 'contact', 'id=' . $cus_id, '../');
     $reg_no = select_item('gen_company', 'reg_no', 'id=' . $cus_id, '../');
     $name2 = select_item('gen_company', 'name', 'id=' . $cus_id, '../');
+    $posision1 = select_item('gen_company', 'posision', 'id=' . $cus_id, '../');
 
 
 
@@ -161,9 +163,7 @@
                 <li>The Second Party will ensure timely payment for the services rendered.</li>
                 <li>Any modifications to this Agreement must be agreed upon by both parties in writing.</li>
             </ul>
-            <p>
-                This Agreement shall remain valid for a period of 45 days from the date of signing unless terminated earlier by mutual consent.
-            </p>
+
 
             </div>
 
@@ -181,10 +181,22 @@
         </div>
       <?php  } ?>
 
+      <div style="margin-bottom: 20px;">
+            <h5>THE SAID TERMS AND CONDITIONS ARE AS FOLLOWS</h5>
+            
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h5>1. The PARTY of the SECOND PART shall provide Janitorial services according to 
+            the Quotation. </h5>
+            <br>
+        </div>
+      
+
 
 <!-- Shift Details -->
 <div style="margin-bottom: 20px;">
-    <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;"> Shift List</h3>
+    <h5> Shift List</h5>
     <?php
     $result = $db->prepare("SELECT * FROM gen_shift WHERE job_id = :job_no");
     $result->bindParam(':job_no', $job_id);
@@ -194,7 +206,7 @@
         $jenitors = $row['employee_count'];
         $supervisors = $row['sup_count'];
     ?>
-<div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; display: flex; flex-direction: column; justify-content: space-between;">
+<div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;  display: flex; flex-direction: column; justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
         <p><strong> Janitors:</strong> <?php echo($row['employee_count']); ?></p>
         <p><strong> Supervisors:</strong> <?php echo($row['sup_count']); ?></p>
@@ -212,13 +224,14 @@
 
         <!-- Special Notes -->
         <div style="margin-bottom: 20px;">
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Special Notes</h3>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <h5>Special Notes</h5>
+            
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
             <p>Prior to the agreement the sites cleaning requirement to be conveyed to Advanced cleaning and minimum required carder to provide a smooth operation is <?php echo $jenitors; ?> janitors and <?php echo $supervisors; ?>  supervisor.</p>
 
             </div>
 
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
             <p>Please note quotation 
             validity period is 45 days from its issuing date</p>
             </div>
@@ -230,33 +243,62 @@
             
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
                 <p><?php echo $row['name']; ?></p>
             </div>
             <?php } ?>
         </div>
 
 
+        
+        <div>
+            <h5>2. The PARTY of the SECOND PART shall provide all the cleaning chemicals and 
+            equipment required for cleaning work</h5>
+
+
+        </div>
+<br>
+
 
         <!-- Charges Details -->
         <div>
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Charges List</h3>
+            <h5>3. The PARTY of the FIRST PART shall pay </h5>
             <?php
             $result = $db->prepare("SELECT * FROM gen_excharge_rec WHERE project_id = :job_no");
             $result->bindParam(':job_no', $job_id);
             $result->execute();
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
                 <p><?php echo $row['recored']; ?></p>
                 <p><strong> Price:</strong> Rs. <?php echo number_format($row['price'], 2); ?></p>
             </div>
             <?php } ?>
         </div>
 
+        <div>
+            <h5>4.This Agreement is valid for a period</h5>
+            <?php
+            $result = $db->prepare("SELECT * FROM gen_agreement WHERE job_id = :job_no");
+            $result->bindParam(':job_no', $job_id);
+            $result->execute();
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $close_date = $row['close_date'];
+                $open_date = $row['open_date'];
+            }
+            ?>
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                <p>This Agreement is valid for a period of ONE YEAR commencing</p>
+                <p><strong> From:</strong>  <?php echo $open_date ?></p>
+                <p><strong> To:</strong>  <?php echo $close_date ?></p>
+
+
+            </div>
+        </div>
+
         <div style="margin-bottom: 20px;">
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Confidentiality </h3>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <h5>5.Confidentiality  </h5>
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; ">
             <p> a. Confidential information refers to any data or information relating 
 to the business of the Client which would reasonably be considered 
 to be proprietary to the client including. But not limited to, accounting 
@@ -269,7 +311,7 @@ to the Client.
 b. The Service Provider agrees that they will not disclose, divulge, 
 reveal, report or use, for any purpose, any confidential information 
 which the Cleaning service has obtained, except as authorized by the 
-Client. The obligation will end on the termination of this Agreement. </p>
+Client. The obligation will end on the termination of this Agreement.</p>
 
             </div>
 
@@ -277,33 +319,29 @@ Client. The obligation will end on the termination of this Agreement. </p>
 
 
         </div>
-
 
         <div>
-            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Agreement is validation</h3>
-            <?php
-            $result = $db->prepare("SELECT * FROM gen_agreement WHERE job_id = :job_no");
-            $result->bindParam(':job_no', $job_id);
-            $result->execute();
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $close_date = $row['close_date'];
-                $open_date = $row['open_date'];
-            }
-            ?>
-            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
-                <p>This Agreement is valid for a period</p>
-                <p><strong> Start date:</strong>  <?php echo $open_date ?></p>
-                <p><strong> Close date:</strong>  <?php echo $close_date ?></p>
-                <p>The PARTY Of the FIRST PART may terminate the services of the PARTY of the 
-SECOND PART by giving ONE MONTH’s notice in writing to the PARTY of the . SECOND PART, on grounds of breach of any of the above conditions or 
-general misconduct of the PARTY of the SECOND PART. 
-</p> <br>
-<p>The PARTY of the SECOND PART may terminate this agreement for their good 
-reasons by giving ONE MONTH’S notice in writing to PRTY of the FIRST PART. 
-</p> 
+            <h5>6. The PARTY Of the FIRST PART may terminate the services of the PARTY of the SECOND PART by giving ONE MONTH’s notice in writing to the PARTY of the SECOND PART, on grounds of breach of any of the above conditions or 
+            general misconduct of the PARTY of the SECOND PART. 
+                
 
-            </div>
+</h5>
+
+
         </div>
+
+        <div>
+            <h5>7. The PARTY of the SECOND PART may terminate this agreement for their good 
+            reasons by giving ONE MONTH’S notice in writing to PRTY of the FIRST PART. 
+</h5>
+
+
+        </div>
+
+
+
+
+        
 
         <div style="font-family: Arial, sans-serif; color: #333;">
     <h3 style="border-bottom: 2px solid #007BFF; padding-bottom: 5px; color: #007BFF;">Payment Details</h3>
@@ -333,12 +371,31 @@ reasons by giving ONE MONTH’S notice in writing to PRTY of the FIRST PART.
                 <div style="text-align: center; width: 45%;">
                     <p>__________________________</p>
                     <p><strong>First Party</strong></p>
+                    <p><?php echo $posision1; ?></p>
                     <p><?php echo $name2; ?></p>
+                    <br>
+                    <p>__________________________</p>
+                    <p><strong>On behalf of</strong></p>
+                    <p><?php echo $name2; ?></p>
+
+                    <p> THE PARTY OF THE FIRST PART </p>
+
                 </div>
+
                 <div style="text-align: center; width: 45%;">
                     <p>__________________________</p>
                     <p><strong>Second Party</strong></p>
+                    <p><?php echo $posision; ?></p>
+
                     <p><?php echo $owner; ?></p>
+                    <br>
+
+                    <p>__________________________</p>
+                    <p><strong>On behalf of </strong></p>
+                    <p><?php echo $info_name; ?></p>
+
+                   <p> THE PARTY OF THE SECOND PART </p>
+
                 </div>
             </div>
         </div>

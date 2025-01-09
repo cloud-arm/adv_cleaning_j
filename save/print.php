@@ -63,6 +63,7 @@
     <?php
     $sec = "1";
     $job_id = $_GET['id'];
+    $type = $_GET['type'];
     $return = '../job_view=' . base64_encode($job_id);
     ?>
 
@@ -81,6 +82,8 @@
         $info_vat = $row['vat_no'];
         $info_con = $row['phone_no'];
         $info_mail = $row['email'];
+        $owner = $row['owner'];
+        $nic = $row['nic_no']; 
     }
 
     $action=$_GET['type'];
@@ -96,7 +99,12 @@
         $cus_id = $row['company_id'];
         $date = $row['date'];
     }
-    $phone = select_item('customer', 'contact', 'id=' . $cus_id, '../');
+    $phone = select_item('gen_company', 'contact', 'id=' . $cus_id, '../');
+    $reg_no = select_item('gen_company', 'reg_no', 'id=' . $cus_id, '../');
+    $name2 = select_item('gen_company', 'name', 'id=' . $cus_id, '../');
+
+
+
     ?>
 
     <div style="max-width: 900px; margin: auto; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px;">
@@ -128,6 +136,51 @@
     </div>
 </div>
         </div>
+
+        <?php 
+        if($type ==1){ ?>
+            <div style="margin-bottom: 20px;">
+            <h3 style="border-bottom: 1px solid #000; padding-bottom: 5px; color: #333;">Agreement details</h3>
+            <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+            <p>
+      This Agreement is made and entered into by <strong>COMPANY REGISTERED No. <?php echo $reg_no; ?></strong> 
+      on this date, <strong>[Insert Date]</strong>, between <strong><?php echo $name2; ?></strong> 
+      (hereinafter referred to as the <strong>"PARTY OF THE FIRST PART"</strong>), and 
+      <strong><?php echo $owner; ?></strong>, bearing ID No. <strong><?php echo $nic; ?></strong>, of 
+      <strong>Advanced Cleaning Services (PVT) Ltd., Negombo</strong> 
+      (hereinafter referred to as the <strong>"PARTY OF THE SECOND PART"</strong>).
+    </p>
+
+    <p>
+      The purpose of this Agreement is to establish the terms and conditions agreed upon by both parties 
+      for the provision of services as detailed herein.
+    </p>
+
+    <p>
+      Both parties hereby acknowledge that they have read and understood the terms of this Agreement and 
+      agree to be legally bound by its contents.
+    </p>
+
+    <p>
+      In witness whereof, both parties have executed this Agreement on the aforementioned date.
+    </p>
+
+            </div>
+
+
+
+            <?php
+            $result = $db->prepare("SELECT * FROM gen_special_note_rec WHERE project_id = :job_no");
+            $result->bindParam(':job_no', $job_id);
+            $result->execute();
+            
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+
+            <?php } ?>
+        </div>
+      <?php  } ?>
+
 
 <!-- Shift Details -->
 <div style="margin-bottom: 20px;">

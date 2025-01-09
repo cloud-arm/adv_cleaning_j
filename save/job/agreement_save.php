@@ -16,6 +16,8 @@ $nic = $_POST['nic'];
 $company = $_POST['company'];
 $close_date = $_POST['close_date'];
 $shift_type_id = $_POST['id2'];
+$position = $_POST['posision'];
+$company_id = $_POST['company_id'];
 
 
 
@@ -36,6 +38,9 @@ $shift_type_id = $_POST['id2'];
             "company" => $company,
             "open_date" => $open_date,
             "close_date" => $close_date,
+            "com_id" => $company_id,
+
+
 
 
 
@@ -45,6 +50,13 @@ $shift_type_id = $_POST['id2'];
 
     // Insert data into the "gen_shift" table
     $result = insert("gen_agreement", $insertData, '../../');
+
+    $result = update('gen_company', 
+    [
+     'posision' => $position,
+ 
+
+    ], 'id='.$company_id, '../../');
 
     if (!$result) {
         die("Failed to save data for location ID: $id");
