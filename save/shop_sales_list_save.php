@@ -66,24 +66,34 @@ $result = update('materials',
 ], 'id='.$pro, '../');
 
 
-// Insert the sales record into the shop_sales_list table
-$sql = "INSERT INTO shop_sales_list (invoice_no, name, qty, date, product_id, sell, type, user_id, stock_id, amount, unit, unit_id) 
-        VALUES (:invoice_no, :name, :qty, :date, :product_id, :sell, :type, :user_id, :stock_id, :amount, :unit, :unit_id)";
-$re = $db->prepare($sql);
-$re->execute([
-    ':invoice_no' => $invo,
-    ':name' => $pro_name,
-    ':qty' => $qty,
-    ':date' => $date,
-    ':product_id' => $pro,
-    ':sell' => $sell_price,
-    ':type' => $type,
-    ':user_id' => $u,
-    ':stock_id' => $stock,
-    ':amount' => $amount,
-    ':unit' => $unit,
-    ':unit_id' => $unit_id
-]);
+
+
+  // Prepare data for insertion
+  $insertData = array(
+    "data" => array(
+        "invoice_no" => $invo,
+        "name" => $pro_name,
+        "qty" => $qty,
+        "date" => $date,
+        "product_id" => $pro,
+        "sell" => $sell_price,
+        "type" => $type,
+        "user_id" => $u,
+        "stock_id" => $stock,
+        "amount" => $amount,
+        "unit" => $unit,
+        "unit_id" => $unit_id,
+
+
+    ),
+    "other" => array()
+);
+
+// Insert data into the "gen_shift" table
+$result = insert("shop_sales_list", $insertData, '../');
+
+
+
 
 // Redirect to the shop page
 header("Location: ../shop?id=" . ($invo));
