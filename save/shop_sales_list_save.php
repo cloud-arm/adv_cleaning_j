@@ -3,7 +3,7 @@ session_start();
 include('../connect.php');
 include('../config.php');
 
-$u = $_SESSION['SESS_MEMBER_ID'] ?? null;
+$u = $_SESSION['SESS_MEMBER_ID'];
 
 // Validate required POST data
 if (!isset($_POST['id'], $_POST['type'], $_POST['qty'], $_POST['id2'], $_POST['pr'], $_POST['unit'])) {
@@ -41,6 +41,7 @@ $available_qty = (int)$product['available_qty'];
 $sell_price = (float)$product['unit_sall_price'];
 $unit_price = (float)$product['unit_price'];
 
+/*
 // Update available quantity after sale
 $available_qty -= $qty;
 if ($available_qty < 0) {
@@ -50,6 +51,7 @@ if ($available_qty < 0) {
     </script>";
     exit; // Stop further execution of the script
 }
+    */
 
 
 $amount = $sell_price * $qty;
