@@ -3,8 +3,6 @@
 <?php
 include("head.php");
 include_once("auth.php");
-$r = $_SESSION['SESS_LAST_NAME'];
-$_SESSION['SESS_FORM'] = 'shop';
 include('connect.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
@@ -14,15 +12,7 @@ if(!isset($_GET['id'])){
     header('Location:shop.php?id='.$new);
 }
 
-// Assuming you already have a PDO connection ($db)
-$stmt = $db->prepare("SELECT * FROM shop_sales_list WHERE user_id = :user_id ");
-$stmt->execute(['user_id' => $u]);
 
-// Loop through the results
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
- //   $invo = $row['invoice_no'];
-    // Do something with $invo if needed
-}
 ?>
 
 
@@ -31,7 +21,259 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <?php include_once("start_body.php"); ?>
 
     <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Sales Order
+                <small>Preview</small>
+            </h1>
 
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <!-- SELECT2 EXAMPLE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Order Add</h3>
+                            <!-- /.box-header -->
+                        </div>
+
+                        <div class="box-body d-block">
+                            <form method="POST" action="save/shop_sales_list_save.php">
+
+                                <div class="row">
+
+                                    <div class="col-md-12 m-0">
+                                        <div class="form-group" id="status"></div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <label>Product</label>
+                                                </div>
+                                                <select class="form-control select2" name="pr" id="p_sel"
+                                                    onchange="pro_select()" style="width: 100%;" tabindex="1" autofocus>
+                                                    <?php
+                                                        // Fetch and display product options from the database
+                                                        $result = select_query("SELECT * FROM materials");
+                                                        while ($row = $result->fetch()) {
+                                                            $mat_id = $raw['id'] ?>
+                                                                        <option value="<?php echo $row['id']; ?>">
+                                                                            <?php echo $row['name']; ?>
+                                                                        </option>
+                                                                        <?php } ?>
+                                                </select> 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <label>Unit</label>
+                                                </div>
+                                                <select class="form-control select2" name="unit" id="unit"
+                                                    style="width: 100%;" tabindex="1" autofocus>
+                                                    <!-- Options will be populated dynamically by JavaScript -->
+                                                    <option value="0">Default</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <label>Qty</label>
+                                                </div>
+                                                <input type="number" class="form-control" value="1" name="qty"
+                                                    tabindex="2">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="hidden" name="id" value="<?php echo $invo; ?>">
+                                            <input type="hidden" name="id2" value="1">
+
+                                            <input type="hidden" name="type" value="Order">
+                                            <input class="btn btn-warning" type="submit" value="Save">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="box-body d-block">
+                            <table id="example2" class="table table-bordered table-hover" style="border-radius: 0;">
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Unit</th>
+                                    <th>QTY</th>
+                                    <th>Cost (Rs.)</th>
+                                    <th>Amount (Rs.)</th>
+                                    <th>#</th>
+                                </tr>
+                                <?php $total = 0;
+                                $style = "";
+                                $result = select_query("SELECT * FROM shop_sales_list WHERE invoice_no = '$invo' ");
+                                for ($i = 0; $row = $result->fetch(); $i++) {
+                                    $pro_id = $row['product_id'];
+
+                                    $re = select_query("SELECT * FROM materials WHERE id = '$pro_id' ");
+                                    for ($i = 0; $rw = $re->fetch(); $i++) {
+                                        $stock = $rw['available_qty'];
+                                    }
+                                    if ($stock < 0) {
+                                        $style = 'style="color:red" ';
+                                    }
+
+                                ?>
+                                <tr <?php echo $style; ?> class="record">
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['unit']; ?></td>
+                                    <td><?php echo $row['qty']; ?></td>
+                                    <td><?php echo $row['sell']; ?></td>
+                                    <td><?php echo $row['amount']; ?></td>
+                                    <td> <a href="#" id="<?php echo $row['id']; ?>" class="dll_btn btn btn-danger"
+                                            title="Click to Delete"> X</a></td>
+                                    <?php $total += $row['amount']; ?>
+                                </tr>
+                                <?php
+                                }
+                                ?>
+
+                            </table>
+                            <h4>Total Rs <b><?php echo number_format($total, 2); ?></h4>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <section class="content">
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="box-title">Payment</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="box-body d-block">
+                    <form method="POST" action="save/shop_sale_save.php">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group" id="bill"></div>
+                            </div>
+
+
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Pay Type</label>
+                                    <select class="form-control" onchange="select_pay()" name="pay_type" id="method">
+                                        <option>Cash</option>
+                                        <option>Card</option>
+                                        <option>Bank</option>
+                                        <option>Chq</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 slt-bank" style="display:none;">
+                                <div class="form-group">
+                                    <label>Account No</label>
+                                    <input class="form-control" type="text" name="acc_no" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 slt-bank" style="display:none;">
+                                <div class="form-group">
+                                    <label>Bank Name</label>
+                                    <input class="form-control" type="text" name="bank_name" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4" id="slt-credit" style="display:none;">
+                                <div class="form-group">
+                                    <label>Credit Invoice</label>
+                                    <select class="form-control" name="credit_note" id="credit_note">
+                                        <option value="0" selected></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 slt-chq" style="display:none;">
+                                <div class="form-group">
+                                    <label>Chq Number</label>
+                                    <input class="form-control" type="text" name="chq_no" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 slt-chq" style="display:none;">
+                                <div class="form-group">
+                                    <label>Chq Bank</label>
+                                    <input class="form-control" type="text" name="chq_bank" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 slt-chq" style="display:none;">
+                                <div class="form-group">
+                                    <label>Chq Date</label>
+                                    <input class="form-control" id="datepicker1" type="text" name="chq_date" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Pay Amount</label>
+                                    <input class="form-control" type="number" name="amount" id="pay_txt" onkeyup="checking()" autocomplete="off">
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-1 ps-0" style="height: 70px; display: flex; align-items: end;">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" value="<?php echo $invo; ?>">
+                                    <input type="hidden" name="sup_id" id="sup_id">
+                                    <input class="btn btn-success" type="submit" id="submit" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
 
 </section>
 
