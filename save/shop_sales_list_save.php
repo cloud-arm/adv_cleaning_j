@@ -5,10 +5,11 @@ include('../config.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
 
-// Validate required POST data
+/*
 if (!isset($_POST['id'], $_POST['type'], $_POST['qty'], $_POST['id2'], $_POST['pr'], $_POST['unit'])) {
     die("Invalid input data");
 }
+    */
 
 $invo = $_POST['id'];
 $type = $_POST['type'];
@@ -42,7 +43,6 @@ $sell_price = (float)$product['unit_sall_price'];
 $unit_price = (float)$product['unit_price'];
 
 /*
-// Update available quantity after sale
 $available_qty -= $qty;
 if ($available_qty < 0) {
     echo "<script>
