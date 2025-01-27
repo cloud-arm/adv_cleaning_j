@@ -4,7 +4,7 @@
 include("head.php");
 include_once("auth.php");
 $r = $_SESSION['SESS_LAST_NAME'];
-$_SESSION['SESS_FORM'] = 'grn_order';
+$_SESSION['SESS_FORM'] = 'shop';
 include('connect.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
