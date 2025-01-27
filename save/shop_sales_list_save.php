@@ -38,9 +38,10 @@ $available_qty = $product['available_qty'];
 $sell_price = $product['unit_sall_price'];
 $unit_price = $product['unit_price'];
 
-/*
+
 
 $available_qty -= $qty;
+/*
 if ($available_qty < 0) {
     echo "<script>
         alert('Insufficient stock');
@@ -52,12 +53,20 @@ if ($available_qty < 0) {
 $amount = $sell_price * $qty;
 $date = date("Y-m-d");
 
-// Update the stock quantity in the database
+/*
 $updateAmount = $db->prepare("UPDATE materials SET available_qty = :qty WHERE id = :pro");
 $updateAmount->execute([
     ':qty' => $available_qty,
     ':pro' => $pro
 ]);
+*/
+
+$result = update('materials', 
+[
+ 'available_qty' => $available_qty,
+
+], 'id='.$pro, '../');
+
 
 // Insert the sales record into the shop_sales_list table
 $sql = "INSERT INTO shop_sales_list (invoice_no, name, qty, date, product_id, sell, type, user_id, stock_id, amount, unit, unit_id) 
