@@ -88,5 +88,5 @@ while ($raw = $r2->fetch()) {
 
 
 // Redirect to another page if required
-header("Location: ../shop_index.php");
+//header("Location: ../shop_index.php");
 ?>

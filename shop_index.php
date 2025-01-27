@@ -127,9 +127,9 @@ $user_level = $_SESSION['USER_LEWAL'];
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Customer Name</th>
-                    <th>Note</th>
-                    <th>Internal company</th>
+                    <th>Invoice No</th>
+                    <th>Date</th>
+                    <th>Total Amount</th>
                 </tr>
             </thead>
             <tbody>
