@@ -12,6 +12,8 @@ $pay_type = $_POST['pay_type'];
 $pay_amount = $_POST['amount'];
 $credit_invo = $_POST['credit_note'];
 
+echo $invo;
+
 $acc_no = '';
 $bank_name = '';
 $chq_no = '';
@@ -20,14 +22,14 @@ $chq_date = '';
 
 // Handling additional fields based on payment type
 if ($pay_type == 'Bank') {
-    $acc_no = $_POST['acc_no'] ?? '';
-    $bank_name = $_POST['bank_name'] ?? '';
+    $acc_no = $_POST['acc_no'];
+    $bank_name = $_POST['bank_name'];
 }
 
 if ($pay_type == 'Chq') {
-    $chq_no = $_POST['chq_no'] ?? '';
-    $chq_bank = $_POST['chq_bank'] ?? '';
-    $chq_date = $_POST['chq_date'] ?? '';
+    $chq_no = $_POST['chq_no'];
+    $chq_bank = $_POST['chq_bank'];
+    $chq_date = $_POST['chq_date'];
 }
 
 $date = date("Y-m-d");
@@ -68,7 +70,7 @@ $total_amount = 0;
 
 while ($raw = $r2->fetch()) {
     $amount = $raw['amount'];
-    $total_amount += $amount;
+    $total_amount = $total_amount+ $amount;
 }
 
     // Insert data into `shop_sales`
