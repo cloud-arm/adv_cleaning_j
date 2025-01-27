@@ -33,7 +33,7 @@ while ($product = $result->fetch()) {
 }
 
 
-
+echo $sell_price;
 
 
 
@@ -51,13 +51,7 @@ if ($available_qty < 0) {
 $amount = $sell_price * $qty;
 $date = date("Y-m-d");
 
-/*
-$updateAmount = $db->prepare("UPDATE materials SET available_qty = :qty WHERE id = :pro");
-$updateAmount->execute([
-    ':qty' => $available_qty,
-    ':pro' => $pro
-]);
-*/
+
 
 $result = update('materials', 
 [
@@ -84,7 +78,6 @@ $result = update('materials',
         "unit" => $unit,
         "unit_id" => $unit_id,
 
-
     ),
     "other" => array()
 );
@@ -96,6 +89,6 @@ $result = insert("shop_sales_list", $insertData, '../');
 
 
 // Redirect to the shop page
-header("Location: ../shop?id=" . ($invo));
+//header("Location: ../shop?id=" . ($invo));
 exit;
 ?>

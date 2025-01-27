@@ -12,7 +12,6 @@ $pay_type = $_POST['pay_type'];
 $pay_amount = $_POST['amount'];
 $credit_invo = $_POST['credit_note'];
 
-echo $invo;
 
 $acc_no = '';
 $bank_name = '';
@@ -84,6 +83,8 @@ while ($raw = $r2->fetch()) {
         ':amount' => $amount,
 
     ]);
+
+
 
 
 // Redirect to another page if required
