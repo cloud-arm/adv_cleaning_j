@@ -13,7 +13,7 @@ if (!isset($_POST['id'], $_POST['type'], $_POST['qty'], $_POST['id2'], $_POST['p
 
 $invo = $_POST['id'];
 $type = $_POST['type'];
-$qty = (int)$_POST['qty']; // Ensure qty is an integer
+$qty = $_POST['qty']; // Ensure qty is an integer
 $id2 = $_POST['id2'];
 $pro = $_POST['pr'];
 $unit_id = $_POST['unit'];
@@ -32,15 +32,18 @@ $result = $db->prepare("SELECT * FROM materials WHERE id = :id");
 $result->bindParam(':id', $pro, PDO::PARAM_INT);
 $result->execute();
 
+/*
+
 $product = $result->fetch(PDO::FETCH_ASSOC);
 if (!$product) {
     die("Product not found");
 }
+    */
 
 $pro_name = $product['name'];
-$available_qty = (int)$product['available_qty'];
-$sell_price = (float)$product['unit_sall_price'];
-$unit_price = (float)$product['unit_price'];
+$available_qty = $product['available_qty'];
+$sell_price = $product['unit_sall_price'];
+$unit_price =$product['unit_price'];
 
 /*
 $available_qty -= $qty;
