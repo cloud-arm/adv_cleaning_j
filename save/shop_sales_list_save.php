@@ -22,25 +22,23 @@ $dic = 0; // Discount initialized to 0
 $stock = 0; // Default stock value
 
 // Fetch product details securely
-$result = $db->prepare("SELECT * FROM materials WHERE id = :id");
-$result->execute([':id' => $pro]);
 
 
-
-$product = $result->fetch();
-if (!$product) {
-    die("Product not found");
+$result = select('materials', '*' , 'id='.$pro, '../');
+while ($product = $result->fetch()) { 
+    $pro_name = $product['name'];
+    $available_qty = $product['available_qty'];
+    $sell_price = $product['unit_sall_price'];
+    $unit_price = $product['unit_price'];
 }
-    
-
-$pro_name = $product['name'];
-$available_qty = $product['available_qty'];
-$sell_price = $product['unit_sall_price'];
-$unit_price = $product['unit_price'];
 
 
 
-$available_qty -= $qty;
+
+
+
+
+$available_qty = $available_qty- $qty;
 /*
 if ($available_qty < 0) {
     echo "<script>
