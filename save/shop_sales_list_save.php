@@ -34,6 +34,7 @@ while ($product = $result->fetch()) {
 
 
 echo $sell_price;
+echo $unit_price;
 
 
 
