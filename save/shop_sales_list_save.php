@@ -90,6 +90,6 @@ $result = insert("shop_sales_list", $insertData, '../');
 
 
 // Redirect to the shop page
-//header("Location: ../shop?id=" . ($invo));
+header("Location: ../shop?id=" . ($invo));
 exit;
 ?>

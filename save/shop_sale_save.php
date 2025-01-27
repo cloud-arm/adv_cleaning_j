@@ -12,7 +12,6 @@ $pay_type = $_POST['pay_type'];
 $pay_amount = $_POST['amount'];
 $credit_invo = $_POST['credit_note'];
 
-
 $acc_no = '';
 $bank_name = '';
 $chq_no = '';
@@ -35,58 +34,53 @@ $date = date("Y-m-d");
 $time = date('H:i:s');
 
 // Fetch shop payment details
-$result = $db->prepare("SELECT * FROM shop_payment WHERE invoice_no = :id");
-$result->bindParam(':id', $invo);
-$result->execute();
-$row = $result->fetch();
+$result = query("SELECT * FROM shop_payment WHERE invoice_no = '$invo'", '../');
+$row = $result->fetch(); // Assuming your `query` function returns a PDOStatement
 
-// Insert payment details into `shop_payment`
-$sql = 'INSERT INTO shop_payment (amount, pay_amount, pay_type, date, invoice_no, supply_id, supplier_invoice, type, chq_no, chq_bank, chq_date, bank_name, acc_no)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-$q = $db->prepare($sql);
-$q->execute([
-    $pay_amount,
-    $pay_amount,
-    $pay_type,
-    $date,
-    $invo,
-    $sup_id,
-    $credit_invo,
-    'Credit_payment',
-    $chq_no,
-    $chq_bank,
-    $chq_date,
-    $bank_name,
-    $acc_no,
-]);
+// Insert payment data
+$insertData = array(
+    "data" => array(
+        "invoice_no" => $invo,
+        "pay_type" => $pay_type,
+        "date" => $date,
+        "amount" => $pay_amount,
+        "pay_amount" => $pay_amount,
+        "supply_id" => $sup_id,
+        "supplier_invoice" => $credit_invo,
+        "type" => 'Credit_payment',
+        "chq_no" => $chq_no,
+        "chq_bank" => $chq_bank,
+        "chq_date" => $chq_date,
+        "bank_name" => $bank_name,
+        "acc_no" => $acc_no,
+    ),
+    "other" => array()
+);
+$result = insert("shop_payment", $insertData, '../');
 
-// Fetch `shop_sales_list` records
-$r2 = $db->prepare("SELECT * FROM shop_sales_list WHERE invoice_no = :invoice_no");
-$r2->bindParam(':invoice_no', $invo);
-$r2->execute();
-
+// Calculate total amount from `shop_sales_list`
 $total_amount = 0;
+$r2 = query("SELECT * FROM shop_sales_list WHERE invoice_no = '$invo'", '../');
 
 while ($raw = $r2->fetch()) {
     $amount = $raw['amount'];
-    $total_amount = $total_amount+ $amount;
+    $total_amount += $amount;
 }
 
-    // Insert data into `shop_sales`
-    $sql = "INSERT INTO shop_sales (invoice_number, date, type, amount)
-            VALUES (:invoice_no, :date,:type, :amount)";
-    $re = $db->prepare($sql);
-    $re->execute([
-        ':invoice_no' => $invo,
-        ':date' => $date,
-        ':type' => $pay_type,
-        ':amount' => $amount,
+echo $total_amount;
 
-    ]);
-
-
-
+// Insert data into `shop_sales`
+$insertData = array(
+    "data" => array(
+        "invoice_number" => $invo,
+        "type" => $pay_type,
+        "date" => $date,
+        "amount" => $total_amount, // Use the total amount calculated
+    ),
+    "other" => array()
+);
+$result = insert("shop_sales", $insertData, '../');
 
 // Redirect to another page if required
-//header("Location: ../shop_index.php");
+ header("Location: ../shop_index.php");
 ?>
