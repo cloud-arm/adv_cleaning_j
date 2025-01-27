@@ -5,6 +5,8 @@ include("head.php");
 include_once("auth.php");
 $r = $_SESSION['SESS_LAST_NAME'];
 $_SESSION['SESS_FORM'] = 'shop';
+$_SESSION['SESS_DEPARTMENT'] = 'shop';
+
 include('connect.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
@@ -282,39 +284,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
     </div>
 
-    <div class="col-md-12">
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">Payment List</h3>
-                <!-- /.box-header -->
-            </div>
 
-            <div class="box-body d-block">
-                <table id="example1" class="table table-bordered table-hover" style="border-radius: 0;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Invoice</th>
-                            <th>Date</th>
-                            <th>Type</th>
-                            <th>Chq No</th>
-                            <th>Chq Date</th>
-                            <th>Bank Name</th>
-                            <th>Acc No</th>
-                            <th>Amount (Rs.)</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="tbl">
-
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-    </div>
 </div>
 
 </section>

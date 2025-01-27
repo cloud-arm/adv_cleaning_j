@@ -7,7 +7,7 @@ include("head.php");
 include_once("auth.php");
 
 $r = $_SESSION['SESS_LAST_NAME'];
-$_SESSION['SESS_DEPARTMENT'] = 'shop';
+$_SESSION['SESS_DEPARTMENT'] = 'management';
 $_SESSION['SESS_FORM'] = 'index';
 $user_level = $_SESSION['USER_LEWAL'];
 
