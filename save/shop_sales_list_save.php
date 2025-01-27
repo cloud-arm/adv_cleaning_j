@@ -5,12 +5,6 @@ include('../config.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
 
-/*
-if (!isset($_POST['id'], $_POST['type'], $_POST['qty'], $_POST['id2'], $_POST['pr'], $_POST['unit'])) {
-    die("Invalid input data");
-}
-    */
-
 $invo = $_POST['id'];
 $type = $_POST['type'];
 $qty = $_POST['qty']; // Ensure qty is an integer
@@ -29,23 +23,23 @@ $stock = 0; // Default stock value
 
 // Fetch product details securely
 $result = $db->prepare("SELECT * FROM materials WHERE id = :id");
-$result->bindParam(':id', $pro, PDO::PARAM_INT);
-$result->execute();
+$result->execute([':id' => $pro]);
 
-/*
 
-$product = $result->fetch(PDO::FETCH_ASSOC);
+
+$product = $result->fetch();
 if (!$product) {
     die("Product not found");
 }
-    */
+    
 
 $pro_name = $product['name'];
 $available_qty = $product['available_qty'];
 $sell_price = $product['unit_sall_price'];
-$unit_price =$product['unit_price'];
+$unit_price = $product['unit_price'];
 
 /*
+
 $available_qty -= $qty;
 if ($available_qty < 0) {
     echo "<script>
@@ -54,17 +48,16 @@ if ($available_qty < 0) {
     </script>";
     exit; // Stop further execution of the script
 }
-    */
-
-
+*/
 $amount = $sell_price * $qty;
 $date = date("Y-m-d");
 
 // Update the stock quantity in the database
 $updateAmount = $db->prepare("UPDATE materials SET available_qty = :qty WHERE id = :pro");
-$updateAmount->bindParam(':qty', $available_qty, PDO::PARAM_INT);
-$updateAmount->bindParam(':pro', $pro, PDO::PARAM_INT);
-$updateAmount->execute();
+$updateAmount->execute([
+    ':qty' => $available_qty,
+    ':pro' => $pro
+]);
 
 // Insert the sales record into the shop_sales_list table
 $sql = "INSERT INTO shop_sales_list (invoice_no, name, qty, date, product_id, sell, type, user_id, stock_id, amount, unit, unit_id) 
@@ -82,10 +75,10 @@ $re->execute([
     ':stock_id' => $stock,
     ':amount' => $amount,
     ':unit' => $unit,
-    ':unit_id' => $unit_id,
+    ':unit_id' => $unit_id
 ]);
 
 // Redirect to the shop page
-header("Location: ../shop?id=" .($invo));
+header("Location: ../shop?id=" . ($invo));
 exit;
 ?>
