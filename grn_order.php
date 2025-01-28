@@ -4,15 +4,17 @@
 include("head.php");
 include_once("auth.php");
 $r = $_SESSION['SESS_LAST_NAME'];
+$location = $_SESSION['USER_LOCATION'];
+
 $_SESSION['SESS_FORM'] = 'grn_order';
 include('connect.php');
-
 $u = $_SESSION['SESS_MEMBER_ID'];
 $invo = $_GET['id'];
 $new='ORD'.date('YmdHis');
 if(!isset($_GET['id'])){
     header('Location:grn_order.php?id='.$new);
 }
+
 
 // Assuming you already have a PDO connection ($db)
 $stmt = $db->prepare("SELECT * FROM purchases_list WHERE user_id = :user_id AND action = '' AND type = 'Return'");
@@ -204,14 +206,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                                         <?php echo $row['name']; ?></option>
                                                     <?php    } ?>
                                                 </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>PO Number(optional)</label>
-                                                <input class="form-control" type="text" name="sup_invoice"
-                                                    autocomplete="off">
                                             </div>
                                         </div>
 

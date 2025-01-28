@@ -6,11 +6,11 @@ date_default_timezone_set("Asia/Colombo");
 
 $userid = $_SESSION['SESS_MEMBER_ID'];
 $username = $_SESSION['SESS_FIRST_NAME'];
+$location = $_SESSION['USER_LOCATION'];
 
 $invo = $_POST['id'];
 $type = $_POST['type'];
 $sup = $_POST['supply'];
-$sup_invo = $_POST['sup_invoice'];
 $note = $_POST['note'];
 
 $pay_amount = 0;
@@ -71,9 +71,9 @@ $date = date("Y-m-d");
 $time = date('H:i:s');
 
 if ($invo != '') {
-    $sql = "INSERT INTO purchases (invoice_no,amount,remarks,date,supplier_id,supplier_name,supplier_invoice,pay_type,pay_amount,discount,type,user_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO purchases (invoice_no,amount,remarks,date,supplier_id,supplier_name,pay_type,pay_amount,discount,type,user_id,location) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     $re = $db->prepare($sql);
-    $re->execute(array($invo, $amount, $note, $date, $sup, $sup_name, $sup_invo, $pay_type, $pay_amount, $dic, $type, $userid));
+    $re->execute(array($invo, $amount, $note, $date, $sup, $sup_name, $pay_type, $pay_amount, $dic, $type, $userid, $location));
 
 
 
@@ -94,9 +94,9 @@ if ($invo != '') {
         }
 
         if ($pay_amount > 0) {
-            $sql = 'INSERT INTO supply_payment (amount,pay_amount,pay_type,date,invoice_no,supply_id,supply_name,supplier_invoice,type,chq_no,chq_bank,chq_date,bank_name,acc_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+            $sql = 'INSERT INTO supply_payment (amount,pay_amount,pay_type,date,invoice_no,supply_id,supply_name,type,chq_no,chq_bank,chq_date,bank_name,acc_no) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
             $q = $db->prepare($sql);
-            $q->execute(array($pay_amount, $pay_amount, $pay_type, $date, $invo, $sup, $sup_name, $sup_invo, $type, $chq_no, $chq_bank, $chq_date, $bank_name, $acc_no));
+            $q->execute(array($pay_amount, $pay_amount, $pay_type, $date, $invo, $sup, $sup_name, $type, $chq_no, $chq_bank, $chq_date, $bank_name, $acc_no));
         }
 
         $result = $db->prepare("SELECT * FROM purchases_list WHERE invoice_no = '$invo' ");
@@ -251,21 +251,18 @@ if ($invo != '') {
 
             $sql = "INSERT INTO inventory (product_id,name,invoice_no,type,balance,qty,date) VALUES (?,?,?,?,?,?,?)";
             $ql = $db->prepare($sql);
-            $ql->execute(array($p_id, $name, $invo, 'out', $qty, $qty, $date));
-
-            
-           
-
-            
+            $ql->execute(array($p_id, $name, $invo, 'out', $qty, $qty, $date));      
         }
     } else
 
     if ($type == 'Order') {
 
-        $sql = "UPDATE  purchases_list SET action=? WHERE invoice_no=?";
+        $sql = "UPDATE purchases_list SET action=?, location=? WHERE invoice_no=?";
         $ql = $db->prepare($sql);
-        $ql->execute(array('pending', $invo));
+        $ql->execute(array('pending', $location, $invo));
+    
     }
+    
 }
 
 $invo = date("ymdhis");

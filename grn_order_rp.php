@@ -232,7 +232,6 @@ date_default_timezone_set("Asia/Colombo");
                 <th>NO</th>
                 <th>Invoice</th>
                 <th>Supplier</th>
-                <th>PO</th>
                 <th>status</th>
                 <th>Amount</th>
                 <th>#</th>
@@ -254,7 +253,6 @@ date_default_timezone_set("Asia/Colombo");
                     <td><?php echo ++$a;  ?></td>
                     <td><?php echo $r0['invoice_no'];  ?></td>
                     <td><?php echo $r0['supplier_name'];  ?></td>
-                    <td><?php echo $r0['supplier_invoice'];  ?></td>
                     <td><?php echo $r0['approve'];  ?></td>
 
                     <td><?php echo $bill; ?></td>
