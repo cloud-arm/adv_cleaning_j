@@ -176,11 +176,7 @@ if ($invo != '') {
                     $ql->execute(array($qty, $qty, $st_id , $location));
                     $con = 1;
                 }
-                else{
-                    $sql = "INSERT INTO stock (product_id,name,invoice_no,qty,date,supply_id,supply_name,sell,cost,location) VALUES (?,?,?,?,?,?,?,?,?,?)";
-                    $ql = $db->prepare($sql);
-                    $ql->execute(array($p_id, $name, $invo, $qty, $date, $sup, $sup_name, $sell, $cost, $location));
-                }
+
             }
 
             $r1 = select("purchases_list", "invoice_no = '$invo' AND approve = '1' ");
@@ -188,6 +184,13 @@ if ($invo != '') {
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':invoice_no', $invo);
             $stmt->execute();
+
+            if ($con == 0) {
+
+                $sql = "INSERT INTO stock (product_id,name,invoice_no,qty,date,supply_id,supply_name,sell,cost,location) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                $ql = $db->prepare($sql);
+                $ql->execute(array($p_id, $name, $invo, $qty, $date, $sup, $sup_name, $sell, $cost , $location));
+            }
 
 
         }

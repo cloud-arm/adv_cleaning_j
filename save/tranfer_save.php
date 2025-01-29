@@ -39,8 +39,9 @@ while ($row = $result->fetch()) {
             "data" => array(
                 "product_id" => $mat_id,
                 "qty" => $qty,
+                "name" => select_item('materials', 'name', "id='$mat_id'", '../'),
                 "location" => "shop",
-                "unit" => $unit,
+                //"unit" => $unit,
                 "date" => $item_date
             ),
             "other" => array()
@@ -50,6 +51,6 @@ while ($row = $result->fetch()) {
 }
 
 // Redirect after operations are completed
-header("Location: ../transfer_history.php");
+//header("Location: ../transfer_history.php");
 exit();
 ?>
