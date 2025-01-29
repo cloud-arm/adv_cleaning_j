@@ -51,6 +51,6 @@ while ($row = $result->fetch()) {
 }
 
 // Redirect after operations are completed
-//header("Location: ../transfer_history.php");
+header("Location: ../transfer_history.php");
 exit();
 ?>
