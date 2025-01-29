@@ -158,7 +158,7 @@ if ($invo != '') {
 
             $qty_blc = 0;
             $con = 0;
-            $re = $db->prepare("SELECT * FROM stock ");
+            $re = $db->prepare("SELECT * FROM stock");
             $re->bindParam(':userid', $res);
             $re->execute();
             for ($k = 0; $r = $re->fetch(); $k++) {
@@ -168,13 +168,18 @@ if ($invo != '') {
                 $st_p = $r['product_id'];
                 $st_sup = $r['supply_id'];
                 $st_id = $r['id'];
+                $location1 = $r['location'];
 
-                if ($sell == $st_sell & $cost == $st_cost & $sup == $st_sup & $p_id == $st_p) {
-
-                    $sql = "UPDATE stock SET qty=qty+?, qty_balance=qty_balance+? WHERE id=?";
+                if ($location1 = $location && $st_p == $p_id) {
+                    $sql = "UPDATE stock SET qty=qty+?, qty_balance=qty_balance+? WHERE id=? AND location=?";
                     $ql = $db->prepare($sql);
-                    $ql->execute(array($qty, $qty, $st_id));
+                    $ql->execute(array($qty, $qty, $st_id , $location));
                     $con = 1;
+                }
+                else{
+                    $sql = "INSERT INTO stock (product_id,name,invoice_no,qty,date,supply_id,supply_name,sell,cost,location) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    $ql = $db->prepare($sql);
+                    $ql->execute(array($p_id, $name, $invo, $qty, $date, $sup, $sup_name, $sell, $cost, $location));
                 }
             }
 
@@ -185,12 +190,6 @@ if ($invo != '') {
             $stmt->execute();
 
 
-            if ($con == 0) {
-
-                $sql = "INSERT INTO stock (product_id,name,invoice_no,qty,date,supply_id,supply_name,sell,cost) VALUES (?,?,?,?,?,?,?,?,?)";
-                $ql = $db->prepare($sql);
-                $ql->execute(array($p_id, $name, $invo, $qty, $date, $sup, $sup_name, $sell, $cost));
-            }
         }
 
 
