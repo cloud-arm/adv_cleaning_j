@@ -6,6 +6,7 @@ include_once("auth.php");
 include('connect.php');
 
 $u = $_SESSION['SESS_MEMBER_ID'];
+$_SESSION['SESS_FORM'] = 'transfer_history';
 $location = $_SESSION['SESS_LAST_NAME'];
 $location1 = $_SESSION['USER_LOCATION'];
 
