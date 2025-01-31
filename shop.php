@@ -56,18 +56,15 @@ if(!isset($_GET['id'])){
                                                 <div class="input-group-addon">
                                                     <label>Product</label>
                                                 </div>
-                                                <select class="form-control select2" name="pr" id="p_sel"
-                                                    onchange="pro_select()" style="width: 100%;" tabindex="1" autofocus>
+                                                <select class="form-control select2" name="pr" id="p_sel" onchange="pro_select()" style="width: 100%;" tabindex="1" autofocus>
                                                     <?php
-                                                        // Fetch and display product options from the database
-                                                        $result = select_query("SELECT * FROM materials");
-                                                        while ($row = $result->fetch()) {
-                                                            $mat_id = $raw['id'] ?>
-                                                                        <option value="<?php echo $row['id']; ?>">
-                                                                            <?php echo $row['name']; ?>
-                                                                        </option>
-                                                                        <?php } ?>
-                                                </select> 
+                                                    // Fetch and display product options from the database
+                                                    $result = select("stock", "*", "location = 'shop'");
+                                                    while ($row = $result->fetch()) {
+                                                        echo "<option value='{$row['product_id']}'>{$row['name']}</option>";
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -84,6 +81,18 @@ if(!isset($_GET['id'])){
                                                     <option value="0">Default</option>
 
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <label>Sell</label>
+                                                </div>
+                                                <input type="number" class="form-control" name="sell" id="sell"
+                                                    tabindex="2">
                                             </div>
                                         </div>
                                     </div>
@@ -378,7 +387,23 @@ function select_pay() {
             error: function() {
                 alert("Error fetching unit data");
             }
-        });
+     });
+
+                // New AJAX call to fetch units for selected product
+                $.ajax({
+        type: "GET",
+        url: "get_sellprice.php",
+        data: {
+            mat_id: productId
+        },
+        success: function(response) {
+            // Populate the sell input field with the received value
+            $("#sell").val(response);
+        },
+        error: function() {
+            alert("Error fetching sell data");
+        }
+    });
     }
 
 

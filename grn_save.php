@@ -171,9 +171,9 @@ if ($invo != '') {
                 $location1 = $r['location'];
 
                 if ($location1 = $location && $st_p == $p_id) {
-                    $sql = "UPDATE stock SET qty=qty+?, qty_balance=qty_balance+? WHERE id=? AND location=?";
+                    $sql = "UPDATE stock SET qty=qty+?, qty_balance=qty_balance+?, sell = ? WHERE id=? AND location=?";
                     $ql = $db->prepare($sql);
-                    $ql->execute(array($qty, $qty, $st_id , $location));
+                    $ql->execute(array($qty, $qty, $sell, $st_id , $location));
                     $con = 1;
                 }
 

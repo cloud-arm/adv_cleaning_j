@@ -64,7 +64,7 @@ while ($raw = $r2->fetch()) {
     $amount = $raw['amount'];
     $total_amount += $amount;
 }
-
+ 
 echo $total_amount;
 
 // Insert data into `shop_sales`

@@ -11,6 +11,7 @@ $qty = $_POST['qty']; // Ensure qty is an integer
 $id2 = $_POST['id2'];
 $pro = $_POST['pr'];
 $unit_id = $_POST['unit'];
+$sell_price = $_POST['sell'];
 
 if ($unit_id == 0) {
     $unit = select_item('materials', 'unit', 'id=' . $pro, '../');
@@ -23,7 +24,7 @@ $stock = 0; // Default stock value
 
 // Fetch product details securely
 
-
+/*
 $result = select('materials', '*' , 'id='.$pro, '../');
 while ($product = $result->fetch()) { 
     $pro_name = $product['name'];
@@ -31,15 +32,17 @@ while ($product = $result->fetch()) {
     $sell_price = $product['unit_sall_price'];
     $unit_price = $product['unit_price'];
 }
+*/
+
+$result = select('stock', '*', "product_id = $pro AND location = 'shop'", '../');
+while ($product = $result->fetch()) { 
+    $name = $product['name'];
+    $qty1 = $product['qty'];
+}
 
 
-echo $sell_price;
-echo $unit_price;
 
-
-
-
-$available_qty = $available_qty- $qty;
+$available_qty = $qty1 - $qty;
 /*
 if ($available_qty < 0) {
     echo "<script>
@@ -54,13 +57,13 @@ $date = date("Y-m-d");
 
 
 
-$result = update('materials', 
+
+
+$result = update('stock', 
 [
- 'available_qty' => $available_qty,
+ 'qty' => $available_qty,
 
-], 'id='.$pro, '../');
-
-
+], "product_id = $pro AND location = 'shop'", '../');
 
 
   // Prepare data for insertion
