@@ -250,7 +250,7 @@
                         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                     <div style="margin-bottom: 10px; padding: 10px; border-radius: 5px; ">
-                        <p><i class="glyphicon glyphicon-ok"></i>.<?php echo $row['recored']; ?>  <strong> Price:</strong> Rs. <?php echo number_format($row['price'], 2); ?></p>
+                        <p><i class="glyphicon glyphicon-ok"></i>.<?php echo $row['recored']; ?>   Rs. <?php echo number_format($row['price'], 2); ?></p>
                     </div>
                     <?php } ?>
                     <div
