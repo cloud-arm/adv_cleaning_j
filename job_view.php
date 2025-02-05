@@ -583,7 +583,7 @@ $_SESSION['SESS_BACK']='job_view';
                         </div>
                     </div>
 
-
+ 
 
                     <!-- agreement -->
 
