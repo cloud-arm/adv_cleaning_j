@@ -24,15 +24,15 @@ $stock = 0; // Default stock value
 
 // Fetch product details securely
 
-/*
+
 $result = select('materials', '*' , 'id='.$pro, '../');
 while ($product = $result->fetch()) { 
     $pro_name = $product['name'];
-    $available_qty = $product['available_qty'];
-    $sell_price = $product['unit_sall_price'];
-    $unit_price = $product['unit_price'];
+   // $available_qty = $product['available_qty'];
+   // $sell_price = $product['unit_sall_price'];
+    //$unit_price = $product['unit_price'];
 }
-*/
+
 
 $result = select('stock', '*', "product_id = $pro AND location = 'shop'", '../');
 while ($product = $result->fetch()) { 
